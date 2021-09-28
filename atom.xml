@@ -6,7 +6,7 @@
   <link href="https://github.com/atom.xml" rel="self"/>
   
   <link href="https://github.com/"/>
-  <updated>2021-09-28T07:30:01.149Z</updated>
+  <updated>2021-09-28T15:35:06.049Z</updated>
   <id>https://github.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kafka集群核心配置</title>
+    <link href="https://github.com/2021/09/28/kafka%E9%9B%86%E7%BE%A4%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE/"/>
+    <id>https://github.com/2021/09/28/kafka%E9%9B%86%E7%BE%A4%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE/</id>
+    <published>2021-09-28T14:57:58.000Z</published>
+    <updated>2021-09-28T15:35:06.049Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>Broker参数</strong><br>首先 Broker 是需要配置存储信息的，即 Broker 使用哪些磁盘。那么针对存储信息的重要参数有以下这么几个：log.dirs：这是非常重要的参数，指定了 Broker 需要使用的若干个文件目录路径。要知道这个参数是没有默认值的，这说明什么？这说明它必须由你亲自指定。log.dir：注意这是 dir，结尾没有 s，说明它只能表示单个路径，它是补充上一个参数用的。这两个参数应该怎么设置呢？很简单，你只要设置log.dirs，即第一个参数就好了，不要设置log.dir。而且更重要的是，在线上生产环境中一定要为log.dirs配置多个路径，具体格式是一个 CSV 格式，也就是用逗号分隔的多个路径，比如/home/kafka1,/home/kafka2,/home/kafka3这样。如果有条件的话你最好保证这些目录挂载到不同的物理磁盘上。这样做有两个好处：提升读写性能：比起单块磁盘，多块物理磁盘同时读写数据有更高的吞吐量。能够实现故障转移：即 Failover。这是 Kafka 1.1 版本新引入的强大功能。要知道在以前，只要 Kafka Broker 使用的任何一块磁盘挂掉了，整个 Broker 进程都会关闭。但是自 1.1 开始，这种情况被修正了，坏掉的磁盘上的数据会自动地转移到其他正常的磁盘上，而且 Broker 还能正常工作。还记得上一期我们关于 Kafka 是否需要使用 RAID 的讨论吗？这个改进正是我们舍弃 RAID 方案的基础：没有这种 Failover 的话，我们只能依靠 RAID 来提供保障。下面说说与 ZooKeeper 相关的设置。首先 ZooKeeper 是做什么的呢？它是一个分布式协调框架，负责协调管理并保存 Kafka 集群的所有元数据信息，比如集群都有哪些 Broker 在运行、创建了哪些 Topic，每个 Topic 都有多少分区以及这些分区的 Leader 副本都在哪些机器上等信息。<br>Kafka 与 ZooKeeper 相关的最重要的参数当属zookeeper.connect。这也是一个 CSV 格式的参数，比如我可以指定它的值为zk1:2181,zk2:2181,zk3:2181。2181 是 ZooKeeper 的默认端口。现在问题来了，如果我让多个 Kafka 集群使用同一套 ZooKeeper 集群，那么这个参数应该怎么设置呢？这时候 chroot 就派上用场了。这个 chroot 是 ZooKeeper 的概念，类似于别名。如果你有两套 Kafka 集群，假设分别叫它们 kafka1 和 kafka2，那么两套集群的zookeeper.connect参数可以这样指定：zk1:2181,zk2:2181,zk3:2181/kafka1和zk1:2181,zk2:2181,zk3:2181/kafka2。切记 chroot 只需要写一次，而且是加到最后的。我经常碰到有人这样指定：zk1:2181/kafka1,zk2:2181/kafka2,zk3:2181/kafka3，这样的格式是不对的。第三组参数是与 Broker 连接相关的，即客户端程序或其他 Broker 如何与该 Broker 进行通信的设置<br>有以下三个参数：listeners：学名叫监听器，其实就是告诉外部连接者要通过什么协议访问指定主机名和端口开放的 Kafka 服务。advertised.listeners：和 listeners 相比多了个 advertised。Advertised 的含义表示宣称的、公布的，就是说这组监听器是 Broker 用于对外发布的。host.name/port：列出这两个参数就是想说你把它们忘掉吧，压根不要为它们指定值，毕竟都是过期的参数了。我们具体说说监听器的概念，从构成上来说，它是若干个逗号分隔的三元组，每个三元组的格式为&lt;协议名称，主机名，端口号&gt;。这里的协议名称可能是标准的名字，比如 PLAINTEXT 表示明文传输、SSL 表示使用 SSL 或 TLS 加密传输等；也可能是你自己定义的协议名字，比如CONTROLLER: //localhost:9092。<br>一旦你自己定义了协议名称，你必须还要指定listener.security.protocol.map参数告诉这个协议底层使用了哪种安全协议，比如指定listener.security.protocol.map=CONTROLLER:PLAINTEXT表示CONTROLLER这个自定义协议底层使用明文不加密传输数据。至于三元组中的主机名和端口号则比较直观，不需要做过多解释。不过有个事情你还是要注意一下，经常有人会问主机名这个设置中我到底使用 IP 地址还是主机名。这里我给出统一的建议：最好全部使用主机名，即 Broker 端和 Client 端应用配置中全部填写主机名。 Broker 源代码中也使用的是主机名，如果你在某些地方使用了 IP 地址进行连接，可能会发生无法连接的问题。<br>第四组参数是关于 Topic 管理的。我来讲讲下面这三个参数：auto.create.topics.enable：是否允许自动创建 Topic。unclean.leader.election.enable：是否允许 Unclean Leader 选举。auto.leader.rebalance.enable：是否允许定期进行 Leader 选举。<br>auto.create.topics.enable参数我建议最好设置成 false，即不允许自动创建 Topic。在我们的线上环境里面有很多名字稀奇古怪的 Topic，我想大概都是因为该参数被设置成了 true 的缘故。你可能有这样的经历，要为名为 test 的 Topic 发送事件，但是不小心拼写错误了，把 test 写成了 tst，之后启动了生产者程序。恭喜你，一个名为 tst 的 Topic 就被自动创建了。所以我一直相信好的运维应该防止这种情形的发生，特别是对于那些大公司而言，每个部门被分配的 Topic 应该由运维严格把控，决不能允许自行创建任何 Topic。第二个参数unclean.leader.election.enable是关闭 Unclean Leader 选举的。何谓 Unclean？还记得 Kafka 有多个副本这件事吗？每个分区都有多个副本来提供高可用。在这些副本中只能有一个副本对外提供服务，即所谓的 Leader 副本。那么问题来了，这些副本都有资格竞争 Leader 吗？显然不是，只有保存数据比较多的那些副本才有资格竞选，那些落后进度太多的副本没资格做这件事。好了，现在出现这种情况了：假设那些保存数据比较多的副本都挂了怎么办？我们还要不要进行 Leader 选举了？此时这个参数就派上用场了。如果设置成 false，那么就坚持之前的原则，坚决不能让那些落后太多的副本竞选 Leader。这样做的后果是这个分区就不可用了，因为没有 Leader 了。反之如果是 true，那么 Kafka 允许你从那些“跑得慢”的副本中选一个出来当 Leader。这样做的后果是数据有可能就丢失了，因为这些副本保存的数据本来就不全，当了 Leader 之后它本人就变得膨胀了，认为自己的数据才是权威的。这个参数在最新版的 Kafka 中默认就是 false，本来不需要我特意提的，但是比较搞笑的是社区对这个参数的默认值来来回回改了好几版了，鉴于我不知道你用的是哪个版本的 Kafka，所以建议你还是显式地把它设置成 false 吧。第三个参数auto.leader.rebalance.enable的影响貌似没什么人提，但其实对生产环境影响非常大。设置它的值为 true 表示允许 Kafka 定期地对一些 Topic 分区进行 Leader 重选举，当然这个重选举不是无脑的，它要满足一定的条件才会发生。严格来说它与上一个参数中 Leader 选举的最大不同在于，它不是选 Leader，而是换 Leader！比如 Leader A 一直表现得很好，但若auto.leader.rebalance.enable=true，那么有可能一段时间后 Leader A 就要被强行卸任换成 Leader B。你要知道换一次 Leader 代价很高的，原本向 A 发送请求的所有客户端都要切换成向 B 发送请求，而且这种换 Leader 本质上没有任何性能收益，因此我建议你在生产环境中把这个参数设置成 false。<br>最后一组参数是数据留存方面的，我分别介绍一下。log.retention.{hours|minutes|ms}：这是个“三兄弟”，都是控制一条消息数据被保存多长时间。从优先级上来说 ms 设置最高、minutes 次之、hours 最低。log.retention.bytes：这是指定 Broker 为消息保存的总磁盘容量大小。message.max.bytes：控制 Broker 能够接收的最大消息大小。先说这个“三兄弟”，虽然 ms 设置有最高的优先级，但是通常情况下我们还是设置 hours 级别的多一些，比如log.retention.hours=168表示默认保存 7 天的数据，自动删除 7 天前的数据。很多公司把 Kafka 当作存储来使用，那么这个值就要相应地调大。其次是这个log.retention.bytes。这个值默认是 -1，表明你想在这台 Broker 上保存多少数据都可以，至少在容量方面 Broker 绝对为你开绿灯，不会做任何阻拦。这个参数真正发挥作用的场景其实是在云上构建多租户的 Kafka 集群：设想你要做一个云上的 Kafka 服务，每个租户只能使用 100GB 的磁盘空间，为了避免有个“恶意”租户使用过多的磁盘空间，设置这个参数就显得至关重要了。最后说说message.max.bytes。实际上今天我和你说的重要参数都是指那些不能使用默认值的参数，这个参数也是一样，默认的 1000012 太少了，还不到 1MB。实际场景中突破 1MB 的消息都是屡见不鲜的，因此在线上环境中设置一个比较大的值还是比较保险的做法。毕竟它只是一个标尺而已，仅仅衡量 Broker 能够处理的最大消息大小，即使设置大一点也不会耗费什么磁盘空间的。</p><p><strong>Topic 级别参数</strong><br>retention.ms：规定了该 Topic 消息被保存的时长。默认是 7 天，即该 Topic 只保存最近 7 天的消息。一旦设置了这个值，它会覆盖掉 Broker 端的全局参数值。retention.bytes：规定了要为该 Topic 预留多大的磁盘空间。和全局参数作用相似，这个值通常在多租户的 Kafka 集群中会有用武之地。当前默认值是 -1，表示可以无限使用磁盘空间。上面这些是从保存消息的维度来说的。如果从能处理的消息大小这个角度来看的话，有一个参数是必须要设置的，即max.message.bytes。它决定了 Kafka Broker 能够正常接收该 Topic 的最大消息大小。我知道目前在很多公司都把 Kafka 作为一个基础架构组件来运行，上面跑了很多的业务数据。如果在全局层面上，我们不好给出一个合适的最大消息值，那么不同业务部门能够自行设定这个 Topic 级别参数就显得非常必要了。在实际场景中，这种用法也确实是非常常见的。<br>创建 Topic 时进行设置</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic transaction --partitions 1 --replication-factor 1 --config retention.ms=15552000000 --config max.message.bytes=5242880</span><br></pre></td></tr></table></figure><p>修改topic</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --entity-name transaction --alter --add-config max.message.bytes=10485760</span><br></pre></td></tr></table></figure><p>说到 JVM 端设置，堆大小这个参数至关重要。虽然在后面我们还会讨论如何调优 Kafka 性能的问题，但现在我想无脑给出一个通用的建议：将你的 JVM 堆大小设置成 6GB 吧，这是目前业界比较公认的一个合理值。我见过很多人就是使用默认的 Heap Size 来跑 Kafka，说实话默认的 1GB 有点小，毕竟 Kafka Broker 在与客户端进行交互时会在 JVM 堆上创建大量的 ByteBuffer 实例，Heap Size 不能太小。JVM 端配置的另一个重要参数就是垃圾回收器的设置，也就是平时常说的 GC 设置。<br>如果你依然在使用 Java 7，那么可以根据以下法则选择合适的垃圾回收器：如果 Broker 所在机器的 CPU 资源非常充裕，建议使用 CMS 收集器。启用方法是指定-XX:+UseCurrentMarkSweepGC。否则，使用吞吐量收集器。开启方法是指定-XX:+UseParallelGC。当然了，如果你在使用 Java 8，那么可以手动设置使用 G1 收集器。在没有任何调优的情况下，G1 表现得要比 CMS 出色，主要体现在更少的 Full GC，需要调整的参数更少等，所以使用 G1 就好了。现在我们确定好了要设置的 JVM 参数，我们该如何为 Kafka 进行设置呢？有些奇怪的是，这个问题居然在 Kafka 官网没有被提及。其实设置的方法也很简单，你只需要设置下面这两个环境变量即可：KAFKA_HEAP_OPTS：指定堆大小。KAFKA_JVM_PERFORMANCE_OPTS：指定 GC 参数。比如你可以这样启动 Kafka Broker，即在启动 Kafka Broker 之前，先设置上这两个环境变量：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export KAFKA_HEAP_OPTS=--Xms6g  --Xmx6g</span><br><span class="line">export KAFKA_JVM_PERFORMANCE_OPTS= -server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:+ExplicitGCInvokesConcurrent -Djava.awt.headless=true</span><br><span class="line">bin/kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure><p><strong>操作系统参数</strong><br>最后我们来聊聊 Kafka 集群通常都需要设置哪些操作系统参数。通常情况下，Kafka 并不需要设置太多的 OS 参数，但有些因素最好还是关注一下，比如下面这几个：文件描述符限制文件系统类型Swappiness提交时间<br>首先是ulimit -n 设置最大值就行。<br>其次是文件系统类型的选择。这里所说的文件系统指的是如 ext3、ext4 或 XFS 这样的日志型文件系统。根据官网的测试报告，XFS 的性能要强于 ext4，所以生产环境最好还是使用 XFS。对了，最近有个 Kafka 使用 ZFS 的数据报告，貌似性能更加强劲，有条件的话不妨一试。第三是 swap 的调优。网上很多文章都提到设置其为 0，将 swap 完全禁掉以防止 Kafka 进程使用 swap 空间。我个人反倒觉得还是不要设置成 0 比较好，我们可以设置成一个较小的值。为什么呢？因为一旦设置成 0，当物理内存耗尽时，操作系统会触发 OOM killer 这个组件，它会随机挑选一个进程然后 kill 掉，即根本不给用户任何的预警。但如果设置成一个比较小的值，当开始使用 swap 空间时，你至少能够观测到 Broker 性能开始出现急剧下降，从而给你进一步调优和诊断问题的时间。基于这个考虑，我个人建议将 swappniess 配置成一个接近 0 但不为 0 的值，比如 1。最后是提交时间或者说是 Flush 落盘时间。向 Kafka 发送数据并不是真要等数据被写入磁盘才会认为成功，而是只要数据被写入到操作系统的页缓存（Page Cache）上就可以了，随后操作系统根据 LRU 算法会定期将页缓存上的“脏”数据落盘到物理磁盘上。这个定期就是由提交时间来确定的，默认是 5 秒。一般情况下我们会认为这个时间太频繁了，可以适当地增加提交间隔来降低物理磁盘的写操作。当然你可能会有这样的疑问：如果在页缓存中的数据在写入到磁盘前机器宕机了，那岂不是数据就丢失了。的确，这种情况数据确实就丢失了，但鉴于 Kafka 在软件层面已经提供了多副本的冗余机制，因此这里稍微拉大提交间隔去换取性能还是一个合理的做法。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Broker参数&lt;/strong&gt;&lt;br&gt;首先 Broker 是需要配置存储信息的，即 Broker 使用哪些磁盘。那么针对存储信息的重要参数有以下这么几个：log.dirs：这是非常重要的参数，指定了 Broker 需要使用的若干个文件目录路径。要知道这个</summary>
+      
+    
+    
+    
+    <category term="kafka安装与配置" scheme="https://github.com/categories/kafka%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="kafka" scheme="https://github.com/tags/kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>LRU缓存淘汰算法</title>
@@ -42,7 +66,7 @@
     <link href="https://github.com/2021/09/28/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"/>
     <id>https://github.com/2021/09/28/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</id>
     <published>2021-09-28T01:04:40.000Z</published>
-    <updated>2021-09-28T02:20:06.486Z</updated>
+    <updated>2021-09-28T15:37:29.873Z</updated>
     
     <content type="html"><![CDATA[<p>1.安装Git nodejs npm<br>2.设置国内镜像 npm config set registry <a href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>3.npm install -g hexo-cli<br>4.初始化 hexo init<br>5.输入hexo g生成静态网页，然后输入hexo s打开本地服务器<br>6.github创建用户 生成 ssh-keygen -t rsa -C “youremail”</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxxx&quot;</span><br><span class="line">git config --global user.email &quot;xxxxxxx&quot;</span><br></pre></td></tr></table></figure><p>7.github添加id_rsa.pub<br>8.hexo修改_config.yaml 添加git地址</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/atlassianss/atlassianss.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure><p>9.安装deploy-git npm install hexo-deployer-git –save</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>10.github –&gt;settings  –&gt; page –&gt;修改域名<br>11.hexo的source目录下新增CNAME文件写入域名（推送的时候不会自动修改域名了）<br>12.新建文章 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;文章&quot;</span><br></pre></td></tr></table></figure><p>新建page</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#hexo new [layout] &lt;title&gt;</span><br><span class="line">#系统会自动给你在source文件夹下创建一个newpage文件夹，以及newpage文件夹中的index.md，这样你访问的newpage对应的链接就是http://xxx.xxx/newpage</span><br><span class="line">hexo new page newpage</span><br></pre></td></tr></table></figure><p>新建草稿</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#draft是草稿的意思，也就是你如果想写文章，又不希望被看到，那么可以</span><br><span class="line">nexo new draft newdraft</span><br><span class="line">预览草稿</span><br><span class="line">hexo server --draft</span><br><span class="line">发布草稿</span><br><span class="line">hexo publish draft newdraft</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -54,7 +78,7 @@
     
     
     
-    <category term="软件安装与配置" scheme="https://github.com/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    <category term="hexo安装与配置" scheme="https://github.com/categories/hexo%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
     
     
     <category term="Hexo" scheme="https://github.com/tags/Hexo/"/>
@@ -287,26 +311,6 @@
   </entry>
   
   <entry>
-    <title>centos杂记</title>
-    <link href="https://github.com/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/"/>
-    <id>https://github.com/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/</id>
-    <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:53:40.429Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.CPU 占用最多的前 10 个进程：<br>ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k4|head -10 3.虚拟内存使用最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k5|head -10</p><p>for i in <code>ls /proc/[0-9]*/net/tcp</code>; do cat $i |wc -l &gt;&gt; 1.txt; done</p><p>处理磁盘<br>fuser-kvm /home<br>umount /home<br>lvreduce -L 50G /dev/mapper/centos-home<br>mkfs.xfs -f /dev/mapper/centos-home<br>mount /dev/mapper/centos-home /home/<br>vgdisplay<br>lvextend -L +425G /dev/mapper/centos-root<br>xfs_growfs /dev/mapper/centos-root</p><p>初始化机器所需要安装包：yum install lrzsz vim-enhanced lsof tree gcc gcc-c++ ntpdate -y</p><p>0 _/1 _ * _ /usr/sbin/ntpdatentp.aliyun.com&amp;&gt;/dev/null<br>1 _/1 * * * /usr/sbin/ntpdate 172.17.70.221 &amp;&gt;/dev/null &amp;&amp; /sbin/hwclock -w 写入硬件<br>时间同步</p><p>日志切割 cd /etc/logrotate.d/<br>/opt/tengine/logs/*.log {<br>rotate 60<br>daily<br> copytruncate<br> notifempty<br> missingok<br> dateext<br>sharedscripts<br>}</p><p>echogridnt123 |passwd–stdin gridnt 强制修改 gridnt 用户设置密码为 gridnt123</p><p>排查句柄数：lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort -nr | more<br>cat /proc/PID/cgroup docker ps -a |grep xxx<br>​</p><p>防火墙策略 firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>/etc/firewalld/zones/public.xml</p><p>rsync 强制同步：rsync -azvh tomcat-paygateway/ –exclude=logs <a href="mailto:&#114;&#x6f;&#111;&#x74;&#x40;&#x31;&#x37;&#x32;&#x2e;&#49;&#x37;&#46;&#56;&#x2e;&#49;&#48;&#x35;">&#114;&#x6f;&#111;&#x74;&#x40;&#x31;&#x37;&#x32;&#x2e;&#49;&#x37;&#46;&#56;&#x2e;&#49;&#48;&#x35;</a>:/opt/tomcat-paygateway/<br>​</p><p>僵尸进程 ps -A -o stat,ppid,pid,cmd | grep -e ‘^[Zz]’ | awk ‘{print $2}’<br>​</p><p>centos 查询 load 飙高的进程<br>#!/bin/bash length=86400 for i in $(seq 1 $(expr ${length} / ${interval}));do date &gt;&gt; load.result ps -eTo stat,pid,tid,ppid,comm –no-header | sed -e ‘s/^ *//‘ | perl -nE ‘chomp;say if (m!^\S*[RD]+\S*!)’ &gt;&gt; load.result echo -e “\n” &gt;&gt; load.result done</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;1.CPU 占用最多的前 10 个进程：&lt;br&gt;ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程&lt;br&gt;ps auxw|head -1;ps auxw|sort -rn -k4|head -10 </summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>ansible模板</title>
     <link href="https://github.com/2021/09/24/ansible%E6%A8%A1%E6%9D%BF/"/>
     <id>https://github.com/2021/09/24/ansible%E6%A8%A1%E6%9D%BF/</id>
@@ -319,6 +323,26 @@
       
       
     <summary type="html">&lt;h2 id=&quot;group-vars-all-yml&quot;&gt;&lt;a href=&quot;#group-vars-all-yml&quot; class=&quot;headerlink&quot; title=&quot;group_vars/all.yml&quot;&gt;&lt;/a&gt;group_vars/all.yml&lt;/h2&gt;&lt;p&gt;ansibl</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>centos杂记</title>
+    <link href="https://github.com/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/"/>
+    <id>https://github.com/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/</id>
+    <published>2021-09-24T07:52:05.000Z</published>
+    <updated>2021-09-24T07:53:40.429Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.CPU 占用最多的前 10 个进程：<br>ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k4|head -10 3.虚拟内存使用最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k5|head -10</p><p>for i in <code>ls /proc/[0-9]*/net/tcp</code>; do cat $i |wc -l &gt;&gt; 1.txt; done</p><p>处理磁盘<br>fuser-kvm /home<br>umount /home<br>lvreduce -L 50G /dev/mapper/centos-home<br>mkfs.xfs -f /dev/mapper/centos-home<br>mount /dev/mapper/centos-home /home/<br>vgdisplay<br>lvextend -L +425G /dev/mapper/centos-root<br>xfs_growfs /dev/mapper/centos-root</p><p>初始化机器所需要安装包：yum install lrzsz vim-enhanced lsof tree gcc gcc-c++ ntpdate -y</p><p>0 _/1 _ * _ /usr/sbin/ntpdatentp.aliyun.com&amp;&gt;/dev/null<br>1 _/1 * * * /usr/sbin/ntpdate 172.17.70.221 &amp;&gt;/dev/null &amp;&amp; /sbin/hwclock -w 写入硬件<br>时间同步</p><p>日志切割 cd /etc/logrotate.d/<br>/opt/tengine/logs/*.log {<br>rotate 60<br>daily<br> copytruncate<br> notifempty<br> missingok<br> dateext<br>sharedscripts<br>}</p><p>echogridnt123 |passwd–stdin gridnt 强制修改 gridnt 用户设置密码为 gridnt123</p><p>排查句柄数：lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort -nr | more<br>cat /proc/PID/cgroup docker ps -a |grep xxx<br>​</p><p>防火墙策略 firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>/etc/firewalld/zones/public.xml</p><p>rsync 强制同步：rsync -azvh tomcat-paygateway/ –exclude=logs <a href="mailto:&#x72;&#x6f;&#x6f;&#116;&#64;&#49;&#x37;&#x32;&#x2e;&#x31;&#55;&#x2e;&#x38;&#x2e;&#x31;&#48;&#53;">&#x72;&#x6f;&#x6f;&#116;&#64;&#49;&#x37;&#x32;&#x2e;&#x31;&#55;&#x2e;&#x38;&#x2e;&#x31;&#48;&#53;</a>:/opt/tomcat-paygateway/<br>​</p><p>僵尸进程 ps -A -o stat,ppid,pid,cmd | grep -e ‘^[Zz]’ | awk ‘{print $2}’<br>​</p><p>centos 查询 load 飙高的进程<br>#!/bin/bash length=86400 for i in $(seq 1 $(expr ${length} / ${interval}));do date &gt;&gt; load.result ps -eTo stat,pid,tid,ppid,comm –no-header | sed -e ‘s/^ *//‘ | perl -nE ‘chomp;say if (m!^\S*[RD]+\S*!)’ &gt;&gt; load.result echo -e “\n” &gt;&gt; load.result done</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1.CPU 占用最多的前 10 个进程：&lt;br&gt;ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程&lt;br&gt;ps auxw|head -1;ps auxw|sort -rn -k4|head -10 </summary>
       
     
     
@@ -387,26 +411,6 @@
   </entry>
   
   <entry>
-    <title>django命令</title>
-    <link href="https://github.com/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <id>https://github.com/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</id>
-    <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:54:49.974Z</updated>
-    
-    <content type="html"><![CDATA[<p>安装 Django： pip install django 指定版本 pip3 install django==2.0<br>新建项目： django-admin.py startproject mysite<br>新建 APP : python manage.py startapp blog<br>启动：python manage.py runserver 8080<br><strong>同步或者更改生成 数据库：</strong><br>python manage.py makemigrations<br>python manage.py migrate<br>清空数据库： python manage.py flush<br>创建管理员： python manage.py createsuperuser<br>修改用户密码： python manage.py changepassword username<br>Django 项目环境终端： python manage.py shell<br>这个命令和 直接运行 python 进入 shell 的区别是：你可以在这个 shell 里面调用当前项目的 models.py 中的 API，对于操作数据的测试非常方便。<br>更多关于 Django 的命令在终端输入：python manage.py 查看</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;安装 Django： pip install django 指定版本 pip3 install django==2.0&lt;br&gt;新建项目： django-admin.py startproject mysite&lt;br&gt;新建 APP : python manage.py sta</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>docker安装</title>
     <link href="https://github.com/2021/09/24/docker%E5%AE%89%E8%A3%85/"/>
     <id>https://github.com/2021/09/24/docker%E5%AE%89%E8%A3%85/</id>
@@ -427,18 +431,18 @@
   </entry>
   
   <entry>
-    <title>elasticsearch-curator工具使用</title>
-    <link href="https://github.com/2021/09/24/elasticsearch-curator%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
-    <id>https://github.com/2021/09/24/elasticsearch-curator%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</id>
+    <title>django命令</title>
+    <link href="https://github.com/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+    <id>https://github.com/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</id>
     <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:56:42.410Z</updated>
+    <updated>2021-09-24T07:54:49.974Z</updated>
     
-    <content type="html"><![CDATA[<p>action.yml 模板：<br>actions:<br>1:<br>action: delete_indices<br>description: ‘Delete logstash index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>#kind: prefix<br>value: ‘logstash-.<em>$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>#timestring: ‘%Y-%m-%d’<br>2:<br>action: delete_indices<br>description: ‘Delete user index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>value: ‘user-.</em>$’<br>    - filtertype: age<br>      source: name<br>      direction: older<br>      timestring: ‘%Y-%m-%d’<br>      unit: days<br>      unit_count: 2<br>  3:<br>    action: delete_indices<br>    description: ‘Delete plan index’<br>    options:<br>      ignore_empty_list: True<br>      timeout_override:<br>      continue_if_exception: False<br>      disable_action: False<br>      allow_ilm_indices: True<br>    filters:<br>    - filtertype: pattern<br>      kind: regex<br>      value: ‘plan-.*$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>4:<br>action: delete_indices<br>description: ‘Delete virtual index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>value: ‘virtual-.*$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>​</p><p>config.yml<br>client:<br>hosts: - 10.122.2.190 - 10.122.2.193<br>port: 9200<br>url_prefix:<br>use_ssl: False<br>certificate:<br>client_cert:<br>client_key:<br>ssl_no_validate: False<br>http_auth:<br>timeout:<br>master_only: False</p><p>logging:<br>loglevel: INFO<br>logfile: /opt/elasticsearch-curator/logs/run.log<br>logformat: default<br>blacklist: [‘elasticsearch’, ‘urllib3’]</p><p>运行：curator –config /opt/curator/conf/config.yml /opt/curator/conf/action.yml<br>​</p>]]></content>
+    <content type="html"><![CDATA[<p>安装 Django： pip install django 指定版本 pip3 install django==2.0<br>新建项目： django-admin.py startproject mysite<br>新建 APP : python manage.py startapp blog<br>启动：python manage.py runserver 8080<br><strong>同步或者更改生成 数据库：</strong><br>python manage.py makemigrations<br>python manage.py migrate<br>清空数据库： python manage.py flush<br>创建管理员： python manage.py createsuperuser<br>修改用户密码： python manage.py changepassword username<br>Django 项目环境终端： python manage.py shell<br>这个命令和 直接运行 python 进入 shell 的区别是：你可以在这个 shell 里面调用当前项目的 models.py 中的 API，对于操作数据的测试非常方便。<br>更多关于 Django 的命令在终端输入：python manage.py 查看</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;action.yml 模板：&lt;br&gt;actions:&lt;br&gt;1:&lt;br&gt;action: delete_indices&lt;br&gt;description: ‘Delete logstash index’&lt;br&gt;options:&lt;br&gt;ignore_empty_list: True</summary>
+    <summary type="html">&lt;p&gt;安装 Django： pip install django 指定版本 pip3 install django==2.0&lt;br&gt;新建项目： django-admin.py startproject mysite&lt;br&gt;新建 APP : python manage.py sta</summary>
       
     
     
