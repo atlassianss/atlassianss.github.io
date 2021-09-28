@@ -3,11 +3,11 @@
   <title>Hume</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://github.com/atlassianss/atlassianss.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2021-09-27T15:12:13.476Z</updated>
-  <id>http://example.com/</id>
+  <link href="https://github.com/atlassianss/atlassianss.github.io/"/>
+  <updated>2021-09-28T03:28:10.615Z</updated>
+  <id>https://github.com/atlassianss/atlassianss.github.io/</id>
   
   <author>
     <name>子非鱼</name>
@@ -17,9 +17,58 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>LRU缓存淘汰算法</title>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/28/LRU%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95-1/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/28/LRU%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95-1/</id>
+    <published>2021-09-28T03:16:33.000Z</published>
+    <updated>2021-09-28T03:28:10.615Z</updated>
+    
+    <content type="html"><![CDATA[<p>常用策略：<br>FIFO（先进先出调度器） 、Capacity Scheduler（容量调度器）和 Fair Sceduler（公平调度器）。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;常用策略：&lt;br&gt;FIFO（先进先出调度器） 、Capacity Scheduler（容量调度器）和 Fair Sceduler（公平调度器）。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo+Github博客搭建记录</title>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/28/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/28/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/</id>
+    <published>2021-09-28T01:04:40.000Z</published>
+    <updated>2021-09-28T02:20:06.486Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.安装Git nodejs npm<br>2.设置国内镜像 npm config set registry <a href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a><br>3.npm install -g hexo-cli<br>4.初始化 hexo init<br>5.输入hexo g生成静态网页，然后输入hexo s打开本地服务器<br>6.github创建用户 生成 ssh-keygen -t rsa -C “youremail”</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxxx&quot;</span><br><span class="line">git config --global user.email &quot;xxxxxxx&quot;</span><br></pre></td></tr></table></figure><p>7.github添加id_rsa.pub<br>8.hexo修改_config.yaml 添加git地址</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/atlassianss/atlassianss.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure><p>9.安装deploy-git npm install hexo-deployer-git –save</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>10.github –&gt;settings  –&gt; page –&gt;修改域名<br>11.hexo的source目录下新增CNAME文件写入域名（推送的时候不会自动修改域名了）<br>12.新建文章 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;文章&quot;</span><br></pre></td></tr></table></figure><p>新建page</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#hexo new [layout] &lt;title&gt;</span><br><span class="line">#系统会自动给你在source文件夹下创建一个newpage文件夹，以及newpage文件夹中的index.md，这样你访问的newpage对应的链接就是http://xxx.xxx/newpage</span><br><span class="line">hexo new page newpage</span><br></pre></td></tr></table></figure><p>新建草稿</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#draft是草稿的意思，也就是你如果想写文章，又不希望被看到，那么可以</span><br><span class="line">nexo new draft newdraft</span><br><span class="line">预览草稿</span><br><span class="line">hexo server --draft</span><br><span class="line">发布草稿</span><br><span class="line">hexo publish draft newdraft</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1.安装Git nodejs npm&lt;br&gt;2.设置国内镜像 npm config set registry &lt;a href=&quot;https://registry.npm.taobao.org/&quot;&gt;https://registry.npm.taobao.org&lt;/a&gt;&lt;br&gt;</summary>
+      
+    
+    
+    
+    <category term="软件安装与配置" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="Hexo" scheme="https://github.com/atlassianss/atlassianss.github.io/tags/Hexo/"/>
+    
+    <category term="Github" scheme="https://github.com/atlassianss/atlassianss.github.io/tags/Github/"/>
+    
+    <category term="博客" scheme="https://github.com/atlassianss/atlassianss.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>光荣与梦想 第四部</title>
-    <link href="http://example.com/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E5%9B%9B%E9%83%A8/"/>
-    <id>http://example.com/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E5%9B%9B%E9%83%A8/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E5%9B%9B%E9%83%A8/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E5%9B%9B%E9%83%A8/</id>
     <published>2021-09-27T15:11:01.000Z</published>
     <updated>2021-09-27T15:12:13.476Z</updated>
     
@@ -33,15 +82,15 @@
     
     
     
-    <category term="history" scheme="http://example.com/categories/history/"/>
+    <category term="history" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/history/"/>
     
     
   </entry>
   
   <entry>
     <title>激荡十年</title>
-    <link href="http://example.com/2021/09/27/%E6%BF%80%E8%8D%A1%E5%8D%81%E5%B9%B4/"/>
-    <id>http://example.com/2021/09/27/%E6%BF%80%E8%8D%A1%E5%8D%81%E5%B9%B4/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/27/%E6%BF%80%E8%8D%A1%E5%8D%81%E5%B9%B4/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/27/%E6%BF%80%E8%8D%A1%E5%8D%81%E5%B9%B4/</id>
     <published>2021-09-27T14:18:43.000Z</published>
     <updated>2021-09-27T14:19:50.085Z</updated>
     
@@ -56,15 +105,15 @@
     
     
     
-    <category term="history" scheme="http://example.com/categories/history/"/>
+    <category term="history" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/history/"/>
     
     
   </entry>
   
   <entry>
     <title>pi4安装androidTV制作家庭影院</title>
-    <link href="http://example.com/2021/09/27/pi4%E5%AE%89%E8%A3%85androidTV%E5%88%B6%E4%BD%9C%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2/"/>
-    <id>http://example.com/2021/09/27/pi4%E5%AE%89%E8%A3%85androidTV%E5%88%B6%E4%BD%9C%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/27/pi4%E5%AE%89%E8%A3%85androidTV%E5%88%B6%E4%BD%9C%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/27/pi4%E5%AE%89%E8%A3%85androidTV%E5%88%B6%E4%BD%9C%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2/</id>
     <published>2021-09-27T14:17:31.000Z</published>
     <updated>2021-09-27T14:17:50.943Z</updated>
     
@@ -84,8 +133,8 @@
   
   <entry>
     <title>光荣与梦想 第三部</title>
-    <link href="http://example.com/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%89%E9%83%A8/"/>
-    <id>http://example.com/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%89%E9%83%A8/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%89%E9%83%A8/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/27/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%89%E9%83%A8/</id>
     <published>2021-09-27T14:13:41.000Z</published>
     <updated>2021-09-27T14:14:51.422Z</updated>
     
@@ -100,15 +149,15 @@
     
     
     
-    <category term="history" scheme="http://example.com/categories/history/"/>
+    <category term="history" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/history/"/>
     
     
   </entry>
   
   <entry>
     <title>小岛经济学</title>
-    <link href="http://example.com/2021/09/26/%E5%B0%8F%E5%B2%9B%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
-    <id>http://example.com/2021/09/26/%E5%B0%8F%E5%B2%9B%E7%BB%8F%E6%B5%8E%E5%AD%A6/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%B0%8F%E5%B2%9B%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%B0%8F%E5%B2%9B%E7%BB%8F%E6%B5%8E%E5%AD%A6/</id>
     <published>2021-09-26T09:22:29.000Z</published>
     <updated>2021-09-26T09:43:20.371Z</updated>
     
@@ -122,15 +171,15 @@
     
     
     
-    <category term="economics" scheme="http://example.com/categories/economics/"/>
+    <category term="economics" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/economics/"/>
     
     
   </entry>
   
   <entry>
     <title>光荣与梦想 第一部</title>
-    <link href="http://example.com/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%80%E9%83%A8/"/>
-    <id>http://example.com/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%80%E9%83%A8/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%80%E9%83%A8/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%B8%80%E9%83%A8/</id>
     <published>2021-09-26T09:21:36.000Z</published>
     <updated>2021-09-26T09:45:28.913Z</updated>
     
@@ -144,15 +193,15 @@
     
     
     
-    <category term="history" scheme="http://example.com/categories/history/"/>
+    <category term="history" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/history/"/>
     
     
   </entry>
   
   <entry>
     <title>光荣与梦想 第二部</title>
-    <link href="http://example.com/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%BA%8C%E9%83%A8/"/>
-    <id>http://example.com/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%BA%8C%E9%83%A8/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%BA%8C%E9%83%A8/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%85%89%E8%8D%A3%E4%B8%8E%E6%A2%A6%E6%83%B3-%E7%AC%AC%E4%BA%8C%E9%83%A8/</id>
     <published>2021-09-26T09:20:47.000Z</published>
     <updated>2021-09-26T09:45:39.915Z</updated>
     
@@ -167,15 +216,15 @@
     
     
     
-    <category term="history" scheme="http://example.com/categories/history/"/>
+    <category term="history" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/history/"/>
     
     
   </entry>
   
   <entry>
     <title>第四消费时代</title>
-    <link href="http://example.com/2021/09/26/%E7%AC%AC%E5%9B%9B%E6%B6%88%E8%B4%B9%E6%97%B6%E4%BB%A3/"/>
-    <id>http://example.com/2021/09/26/%E7%AC%AC%E5%9B%9B%E6%B6%88%E8%B4%B9%E6%97%B6%E4%BB%A3/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E7%AC%AC%E5%9B%9B%E6%B6%88%E8%B4%B9%E6%97%B6%E4%BB%A3/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E7%AC%AC%E5%9B%9B%E6%B6%88%E8%B4%B9%E6%97%B6%E4%BB%A3/</id>
     <published>2021-09-26T09:19:59.000Z</published>
     <updated>2021-09-26T09:46:06.137Z</updated>
     
@@ -190,15 +239,15 @@
     
     
     
-    <category term="economics" scheme="http://example.com/categories/economics/"/>
+    <category term="economics" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/economics/"/>
     
     
   </entry>
   
   <entry>
     <title>大败局</title>
-    <link href="http://example.com/2021/09/26/%E5%A4%A7%E8%B4%A5%E5%B1%80/"/>
-    <id>http://example.com/2021/09/26/%E5%A4%A7%E8%B4%A5%E5%B1%80/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%A4%A7%E8%B4%A5%E5%B1%80/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/26/%E5%A4%A7%E8%B4%A5%E5%B1%80/</id>
     <published>2021-09-26T09:17:15.000Z</published>
     <updated>2021-09-26T09:51:33.800Z</updated>
     
@@ -212,15 +261,15 @@
     
     
     
-    <category term="economics" scheme="http://example.com/categories/economics/"/>
+    <category term="economics" scheme="https://github.com/atlassianss/atlassianss.github.io/categories/economics/"/>
     
     
   </entry>
   
   <entry>
     <title>zabbix接入k8s监控</title>
-    <link href="http://example.com/2021/09/24/zabbix%E6%8E%A5%E5%85%A5k8s%E7%9B%91%E6%8E%A7/"/>
-    <id>http://example.com/2021/09/24/zabbix%E6%8E%A5%E5%85%A5k8s%E7%9B%91%E6%8E%A7/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/zabbix%E6%8E%A5%E5%85%A5k8s%E7%9B%91%E6%8E%A7/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/zabbix%E6%8E%A5%E5%85%A5k8s%E7%9B%91%E6%8E%A7/</id>
     <published>2021-09-24T08:17:36.000Z</published>
     <updated>2021-09-24T08:39:58.469Z</updated>
     
@@ -239,8 +288,8 @@
   
   <entry>
     <title>ansible模板</title>
-    <link href="http://example.com/2021/09/24/ansible%E6%A8%A1%E6%9D%BF/"/>
-    <id>http://example.com/2021/09/24/ansible%E6%A8%A1%E6%9D%BF/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/ansible%E6%A8%A1%E6%9D%BF/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/ansible%E6%A8%A1%E6%9D%BF/</id>
     <published>2021-09-24T07:52:05.000Z</published>
     <updated>2021-09-24T07:52:44.241Z</updated>
     
@@ -259,12 +308,12 @@
   
   <entry>
     <title>centos杂记</title>
-    <link href="http://example.com/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/"/>
-    <id>http://example.com/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/centos%20%E6%9D%82%E8%AE%B0/</id>
     <published>2021-09-24T07:52:05.000Z</published>
     <updated>2021-09-24T07:53:40.429Z</updated>
     
-    <content type="html"><![CDATA[<p>1.CPU 占用最多的前 10 个进程：<br>ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k4|head -10 3.虚拟内存使用最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k5|head -10</p><p>for i in <code>ls /proc/[0-9]*/net/tcp</code>; do cat $i |wc -l &gt;&gt; 1.txt; done</p><p>处理磁盘<br>fuser-kvm /home<br>umount /home<br>lvreduce -L 50G /dev/mapper/centos-home<br>mkfs.xfs -f /dev/mapper/centos-home<br>mount /dev/mapper/centos-home /home/<br>vgdisplay<br>lvextend -L +425G /dev/mapper/centos-root<br>xfs_growfs /dev/mapper/centos-root</p><p>初始化机器所需要安装包：yum install lrzsz vim-enhanced lsof tree gcc gcc-c++ ntpdate -y</p><p>0 _/1 _ * _ /usr/sbin/ntpdatentp.aliyun.com&amp;&gt;/dev/null<br>1 _/1 * * * /usr/sbin/ntpdate 172.17.70.221 &amp;&gt;/dev/null &amp;&amp; /sbin/hwclock -w 写入硬件<br>时间同步</p><p>日志切割 cd /etc/logrotate.d/<br>/opt/tengine/logs/*.log {<br>rotate 60<br>daily<br> copytruncate<br> notifempty<br> missingok<br> dateext<br>sharedscripts<br>}</p><p>echogridnt123 |passwd–stdin gridnt 强制修改 gridnt 用户设置密码为 gridnt123</p><p>排查句柄数：lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort -nr | more<br>cat /proc/PID/cgroup docker ps -a |grep xxx<br>​</p><p>防火墙策略 firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>/etc/firewalld/zones/public.xml</p><p>rsync 强制同步：rsync -azvh tomcat-paygateway/ –exclude=logs <a href="mailto:&#x72;&#x6f;&#111;&#116;&#x40;&#x31;&#x37;&#x32;&#x2e;&#x31;&#x37;&#46;&#x38;&#x2e;&#49;&#x30;&#x35;">&#x72;&#x6f;&#111;&#116;&#x40;&#x31;&#x37;&#x32;&#x2e;&#x31;&#x37;&#46;&#x38;&#x2e;&#49;&#x30;&#x35;</a>:/opt/tomcat-paygateway/<br>​</p><p>僵尸进程 ps -A -o stat,ppid,pid,cmd | grep -e ‘^[Zz]’ | awk ‘{print $2}’<br>​</p><p>centos 查询 load 飙高的进程<br>#!/bin/bash length=86400 for i in $(seq 1 $(expr ${length} / ${interval}));do date &gt;&gt; load.result ps -eTo stat,pid,tid,ppid,comm –no-header | sed -e ‘s/^ *//‘ | perl -nE ‘chomp;say if (m!^\S*[RD]+\S*!)’ &gt;&gt; load.result echo -e “\n” &gt;&gt; load.result done</p>]]></content>
+    <content type="html"><![CDATA[<p>1.CPU 占用最多的前 10 个进程：<br>ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k4|head -10 3.虚拟内存使用最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k5|head -10</p><p>for i in <code>ls /proc/[0-9]*/net/tcp</code>; do cat $i |wc -l &gt;&gt; 1.txt; done</p><p>处理磁盘<br>fuser-kvm /home<br>umount /home<br>lvreduce -L 50G /dev/mapper/centos-home<br>mkfs.xfs -f /dev/mapper/centos-home<br>mount /dev/mapper/centos-home /home/<br>vgdisplay<br>lvextend -L +425G /dev/mapper/centos-root<br>xfs_growfs /dev/mapper/centos-root</p><p>初始化机器所需要安装包：yum install lrzsz vim-enhanced lsof tree gcc gcc-c++ ntpdate -y</p><p>0 _/1 _ * _ /usr/sbin/ntpdatentp.aliyun.com&amp;&gt;/dev/null<br>1 _/1 * * * /usr/sbin/ntpdate 172.17.70.221 &amp;&gt;/dev/null &amp;&amp; /sbin/hwclock -w 写入硬件<br>时间同步</p><p>日志切割 cd /etc/logrotate.d/<br>/opt/tengine/logs/*.log {<br>rotate 60<br>daily<br> copytruncate<br> notifempty<br> missingok<br> dateext<br>sharedscripts<br>}</p><p>echogridnt123 |passwd–stdin gridnt 强制修改 gridnt 用户设置密码为 gridnt123</p><p>排查句柄数：lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort -nr | more<br>cat /proc/PID/cgroup docker ps -a |grep xxx<br>​</p><p>防火墙策略 firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>/etc/firewalld/zones/public.xml</p><p>rsync 强制同步：rsync -azvh tomcat-paygateway/ –exclude=logs <a href="mailto:&#x72;&#x6f;&#111;&#116;&#64;&#49;&#x37;&#x32;&#46;&#49;&#x37;&#x2e;&#x38;&#x2e;&#x31;&#48;&#53;">&#x72;&#x6f;&#111;&#116;&#64;&#49;&#x37;&#x32;&#46;&#49;&#x37;&#x2e;&#x38;&#x2e;&#x31;&#48;&#53;</a>:/opt/tomcat-paygateway/<br>​</p><p>僵尸进程 ps -A -o stat,ppid,pid,cmd | grep -e ‘^[Zz]’ | awk ‘{print $2}’<br>​</p><p>centos 查询 load 飙高的进程<br>#!/bin/bash length=86400 for i in $(seq 1 $(expr ${length} / ${interval}));do date &gt;&gt; load.result ps -eTo stat,pid,tid,ppid,comm –no-header | sed -e ‘s/^ *//‘ | perl -nE ‘chomp;say if (m!^\S*[RD]+\S*!)’ &gt;&gt; load.result echo -e “\n” &gt;&gt; load.result done</p>]]></content>
     
     
       
@@ -278,49 +327,9 @@
   </entry>
   
   <entry>
-    <title>centos监控模板</title>
-    <link href="http://example.com/2021/09/24/centos%E7%9B%91%E6%8E%A7%E6%A8%A1%E6%9D%BF/"/>
-    <id>http://example.com/2021/09/24/centos%E7%9B%91%E6%8E%A7%E6%A8%A1%E6%9D%BF/</id>
-    <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:53:52.398Z</updated>
-    
-    <content type="html"><![CDATA[<p>cpu 使用率 ：100 - (avg (irate(node_cpu{job=”bjpx_node”,mode=”idle”, instance=<del>“$node”}[5m])) by (instance) * 100)<br>网络流量：avg (irate(node_network_receive_bytes{job=”bjpx_node”, instance=</del>‘$node’, device!=’lo’}[5m])) by (instance, device) *8<br>avg (irate(node_network_transmit_bytes{job=”bjpx_node”, instance=<del>‘$node’, device!=’lo’}[5m])) by (instance, device) *8<br>网络活跃连接数：node_netstat_Tcp_CurrEstab{instance=</del>‘$node’}<br>磁盘空间使用率：100.0 - 100 * (node_filesystem_avail{instance=<del>‘$node’,device !</del>‘tmpfs’,device!<del>‘by-uuid’, fstype!</del>‘rootfs’} / node_filesystem_size{instance=<del>‘$node’,device !</del>‘tmpfs’,device!<del>‘by-uuid’, fstype!</del>‘rootfs’})<br>内网5分钟ping: probe_duration_seconds{instance=<del>“^$instance”,job=”ping_all”}<br>dnslookup: probe_dns_lookup_time_seconds{instance=</del>“$instance”}</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;cpu 使用率 ：100 - (avg (irate(node_cpu{job=”bjpx_node”,mode=”idle”, instance=&lt;del&gt;“$node”}[5m])) by (instance) * 100)&lt;br&gt;网络流量：avg (irate(nod</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>jaeger-configmap</title>
-    <link href="http://example.com/2021/09/24/configmap/"/>
-    <id>http://example.com/2021/09/24/configmap/</id>
-    <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:54:38.196Z</updated>
-    
-    <content type="html"><![CDATA[<p>apiVersion: v1<br>kind: ConfigMap<br>metadata:<br>name: jaeger-configuration<br>namespace: devops<br>labels:<br>app: jaeger<br>app.kubernetes.io/name: jaeger<br>data:<br>ingester: |<br>kafka:<br>consumer:<br>topic: jaeger-spans<br>brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>ingester:<br>deadlockInterval: 5s<br>storage: |<br>type: elasticsearch<br>es:<br>server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>span-storage-type: kafka<br>collector: |<br>kafka:<br>producer:<br>topic: jaeger-spans<br>#brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>brokers: 172.16.221.78:30901,172.16.221.78:30902,172.16.221.78:30903<br>collector:<br>zipkin:<br>http-port: 9411</p><h1 id="es"><a href="#es" class="headerlink" title="es:"></a>es:</h1><h1 id="server-urls-http-172-16-67-195-9200"><a href="#server-urls-http-172-16-67-195-9200" class="headerlink" title="server-urls: http://172.16.67.195:9200"></a>server-urls: <a href="http://172.16.67.195:9200/">http://172.16.67.195:9200</a></h1><p>#agent: |</p><h1 id="collector"><a href="#collector" class="headerlink" title="collector:"></a>collector:</h1><h1 id="host-port-“jaeger-collector-14267”"><a href="#host-port-“jaeger-collector-14267”" class="headerlink" title="host-port: “jaeger-collector:14267”"></a>host-port: “jaeger-collector:14267”</h1><p>span-storage-query: elasticsearch<br>query: |<br>es:<br>#server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>server-urls: <a href="http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200/">http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200</a><br>username: elastic<br>password: Yuantu123<br>max-span-age: 168h0m0s<br>​</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;apiVersion: v1&lt;br&gt;kind: ConfigMap&lt;br&gt;metadata:&lt;br&gt;name: jaeger-configuration&lt;br&gt;namespace: devops&lt;br&gt;labels:&lt;br&gt;app: jaeger&lt;br&gt;app.kubern</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>centos优化tcp连接</title>
-    <link href="http://example.com/2021/09/24/centos%E4%BC%98%E5%8C%96tcp%E8%BF%9E%E6%8E%A5/"/>
-    <id>http://example.com/2021/09/24/centos%E4%BC%98%E5%8C%96tcp%E8%BF%9E%E6%8E%A5/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/centos%E4%BC%98%E5%8C%96tcp%E8%BF%9E%E6%8E%A5/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/centos%E4%BC%98%E5%8C%96tcp%E8%BF%9E%E6%8E%A5/</id>
     <published>2021-09-24T07:52:05.000Z</published>
     <updated>2021-09-24T07:54:06.860Z</updated>
     
@@ -338,18 +347,18 @@
   </entry>
   
   <entry>
-    <title>django命令</title>
-    <link href="http://example.com/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
-    <id>http://example.com/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</id>
+    <title>jaeger-configmap</title>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/configmap/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/configmap/</id>
     <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:54:49.974Z</updated>
+    <updated>2021-09-24T07:54:38.196Z</updated>
     
-    <content type="html"><![CDATA[<p>安装 Django： pip install django 指定版本 pip3 install django==2.0<br>新建项目： django-admin.py startproject mysite<br>新建 APP : python manage.py startapp blog<br>启动：python manage.py runserver 8080<br><strong>同步或者更改生成 数据库：</strong><br>python manage.py makemigrations<br>python manage.py migrate<br>清空数据库： python manage.py flush<br>创建管理员： python manage.py createsuperuser<br>修改用户密码： python manage.py changepassword username<br>Django 项目环境终端： python manage.py shell<br>这个命令和 直接运行 python 进入 shell 的区别是：你可以在这个 shell 里面调用当前项目的 models.py 中的 API，对于操作数据的测试非常方便。<br>更多关于 Django 的命令在终端输入：python manage.py 查看</p>]]></content>
+    <content type="html"><![CDATA[<p>apiVersion: v1<br>kind: ConfigMap<br>metadata:<br>name: jaeger-configuration<br>namespace: devops<br>labels:<br>app: jaeger<br>app.kubernetes.io/name: jaeger<br>data:<br>ingester: |<br>kafka:<br>consumer:<br>topic: jaeger-spans<br>brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>ingester:<br>deadlockInterval: 5s<br>storage: |<br>type: elasticsearch<br>es:<br>server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>span-storage-type: kafka<br>collector: |<br>kafka:<br>producer:<br>topic: jaeger-spans<br>#brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>brokers: 172.16.221.78:30901,172.16.221.78:30902,172.16.221.78:30903<br>collector:<br>zipkin:<br>http-port: 9411</p><h1 id="es"><a href="#es" class="headerlink" title="es:"></a>es:</h1><h1 id="server-urls-http-172-16-67-195-9200"><a href="#server-urls-http-172-16-67-195-9200" class="headerlink" title="server-urls: http://172.16.67.195:9200"></a>server-urls: <a href="http://172.16.67.195:9200/">http://172.16.67.195:9200</a></h1><p>#agent: |</p><h1 id="collector"><a href="#collector" class="headerlink" title="collector:"></a>collector:</h1><h1 id="host-port-“jaeger-collector-14267”"><a href="#host-port-“jaeger-collector-14267”" class="headerlink" title="host-port: “jaeger-collector:14267”"></a>host-port: “jaeger-collector:14267”</h1><p>span-storage-query: elasticsearch<br>query: |<br>es:<br>#server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>server-urls: <a href="http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200/">http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200</a><br>username: elastic<br>password: Yuantu123<br>max-span-age: 168h0m0s<br>​</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;安装 Django： pip install django 指定版本 pip3 install django==2.0&lt;br&gt;新建项目： django-admin.py startproject mysite&lt;br&gt;新建 APP : python manage.py sta</summary>
+    <summary type="html">&lt;p&gt;apiVersion: v1&lt;br&gt;kind: ConfigMap&lt;br&gt;metadata:&lt;br&gt;name: jaeger-configuration&lt;br&gt;namespace: devops&lt;br&gt;labels:&lt;br&gt;app: jaeger&lt;br&gt;app.kubern</summary>
       
     
     
@@ -359,8 +368,8 @@
   
   <entry>
     <title>docker安装</title>
-    <link href="http://example.com/2021/09/24/docker%E5%AE%89%E8%A3%85/"/>
-    <id>http://example.com/2021/09/24/docker%E5%AE%89%E8%A3%85/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/docker%E5%AE%89%E8%A3%85/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/docker%E5%AE%89%E8%A3%85/</id>
     <published>2021-09-24T07:52:05.000Z</published>
     <updated>2021-09-24T07:56:20.042Z</updated>
     
@@ -378,18 +387,38 @@
   </entry>
   
   <entry>
-    <title>elasticsearch-curator工具使用</title>
-    <link href="http://example.com/2021/09/24/elasticsearch-curator%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
-    <id>http://example.com/2021/09/24/elasticsearch-curator%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</id>
+    <title>centos监控模板</title>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/centos%E7%9B%91%E6%8E%A7%E6%A8%A1%E6%9D%BF/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/centos%E7%9B%91%E6%8E%A7%E6%A8%A1%E6%9D%BF/</id>
     <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:56:42.410Z</updated>
+    <updated>2021-09-24T07:53:52.398Z</updated>
     
-    <content type="html"><![CDATA[<p>action.yml 模板：<br>actions:<br>1:<br>action: delete_indices<br>description: ‘Delete logstash index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>#kind: prefix<br>value: ‘logstash-.<em>$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>#timestring: ‘%Y-%m-%d’<br>2:<br>action: delete_indices<br>description: ‘Delete user index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>value: ‘user-.</em>$’<br>    - filtertype: age<br>      source: name<br>      direction: older<br>      timestring: ‘%Y-%m-%d’<br>      unit: days<br>      unit_count: 2<br>  3:<br>    action: delete_indices<br>    description: ‘Delete plan index’<br>    options:<br>      ignore_empty_list: True<br>      timeout_override:<br>      continue_if_exception: False<br>      disable_action: False<br>      allow_ilm_indices: True<br>    filters:<br>    - filtertype: pattern<br>      kind: regex<br>      value: ‘plan-.*$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>4:<br>action: delete_indices<br>description: ‘Delete virtual index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>value: ‘virtual-.*$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>​</p><p>config.yml<br>client:<br>hosts: - 10.122.2.190 - 10.122.2.193<br>port: 9200<br>url_prefix:<br>use_ssl: False<br>certificate:<br>client_cert:<br>client_key:<br>ssl_no_validate: False<br>http_auth:<br>timeout:<br>master_only: False</p><p>logging:<br>loglevel: INFO<br>logfile: /opt/elasticsearch-curator/logs/run.log<br>logformat: default<br>blacklist: [‘elasticsearch’, ‘urllib3’]</p><p>运行：curator –config /opt/curator/conf/config.yml /opt/curator/conf/action.yml<br>​</p>]]></content>
+    <content type="html"><![CDATA[<p>cpu 使用率 ：100 - (avg (irate(node_cpu{job=”bjpx_node”,mode=”idle”, instance=<del>“$node”}[5m])) by (instance) * 100)<br>网络流量：avg (irate(node_network_receive_bytes{job=”bjpx_node”, instance=</del>‘$node’, device!=’lo’}[5m])) by (instance, device) *8<br>avg (irate(node_network_transmit_bytes{job=”bjpx_node”, instance=<del>‘$node’, device!=’lo’}[5m])) by (instance, device) *8<br>网络活跃连接数：node_netstat_Tcp_CurrEstab{instance=</del>‘$node’}<br>磁盘空间使用率：100.0 - 100 * (node_filesystem_avail{instance=<del>‘$node’,device !</del>‘tmpfs’,device!<del>‘by-uuid’, fstype!</del>‘rootfs’} / node_filesystem_size{instance=<del>‘$node’,device !</del>‘tmpfs’,device!<del>‘by-uuid’, fstype!</del>‘rootfs’})<br>内网5分钟ping: probe_duration_seconds{instance=<del>“^$instance”,job=”ping_all”}<br>dnslookup: probe_dns_lookup_time_seconds{instance=</del>“$instance”}</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;action.yml 模板：&lt;br&gt;actions:&lt;br&gt;1:&lt;br&gt;action: delete_indices&lt;br&gt;description: ‘Delete logstash index’&lt;br&gt;options:&lt;br&gt;ignore_empty_list: True</summary>
+    <summary type="html">&lt;p&gt;cpu 使用率 ：100 - (avg (irate(node_cpu{job=”bjpx_node”,mode=”idle”, instance=&lt;del&gt;“$node”}[5m])) by (instance) * 100)&lt;br&gt;网络流量：avg (irate(nod</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>django命令</title>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/django%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</id>
+    <published>2021-09-24T07:52:05.000Z</published>
+    <updated>2021-09-24T07:54:49.974Z</updated>
+    
+    <content type="html"><![CDATA[<p>安装 Django： pip install django 指定版本 pip3 install django==2.0<br>新建项目： django-admin.py startproject mysite<br>新建 APP : python manage.py startapp blog<br>启动：python manage.py runserver 8080<br><strong>同步或者更改生成 数据库：</strong><br>python manage.py makemigrations<br>python manage.py migrate<br>清空数据库： python manage.py flush<br>创建管理员： python manage.py createsuperuser<br>修改用户密码： python manage.py changepassword username<br>Django 项目环境终端： python manage.py shell<br>这个命令和 直接运行 python 进入 shell 的区别是：你可以在这个 shell 里面调用当前项目的 models.py 中的 API，对于操作数据的测试非常方便。<br>更多关于 Django 的命令在终端输入：python manage.py 查看</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;安装 Django： pip install django 指定版本 pip3 install django==2.0&lt;br&gt;新建项目： django-admin.py startproject mysite&lt;br&gt;新建 APP : python manage.py sta</summary>
       
     
     
@@ -399,8 +428,8 @@
   
   <entry>
     <title>elasticserch常用查询命令</title>
-    <link href="http://example.com/2021/09/24/elasticserch%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/"/>
-    <id>http://example.com/2021/09/24/elasticserch%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/</id>
+    <link href="https://github.com/atlassianss/atlassianss.github.io/2021/09/24/elasticserch%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/"/>
+    <id>https://github.com/atlassianss/atlassianss.github.io/2021/09/24/elasticserch%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/</id>
     <published>2021-09-24T07:52:05.000Z</published>
     <updated>2021-09-24T07:57:01.362Z</updated>
     
@@ -410,27 +439,6 @@
       
       
     <summary type="html">&lt;p&gt;查询索引列表&lt;br&gt;curl -u 用户:密码 &lt;a href=&quot;http://es/&quot;&gt;http://es&lt;/a&gt;地址:9200/_cat/indices?v&lt;br&gt;清除 cache&lt;br&gt;curl &lt;a href=&quot;http://es/&quot;&gt;http://es&lt;/a&gt;地址</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>filebeat k8s日志收集方式</title>
-    <link href="http://example.com/2021/09/24/filebeat%20k8s%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E5%BC%8F/"/>
-    <id>http://example.com/2021/09/24/filebeat%20k8s%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%96%B9%E5%BC%8F/</id>
-    <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T08:03:45.017Z</updated>
-    
-    <content type="html"><![CDATA[<p>Dockerfile</p><h1 id="DESCRIPTION-Filebeat"><a href="#DESCRIPTION-Filebeat" class="headerlink" title="DESCRIPTION: Filebeat"></a>DESCRIPTION: Filebeat</h1><h1 id="SOURCE-https-github-com-rootsongjc-docker-images-tree-master-filebeat-filebeat-7-0-0"><a href="#SOURCE-https-github-com-rootsongjc-docker-images-tree-master-filebeat-filebeat-7-0-0" class="headerlink" title="SOURCE: https://github.com/rootsongjc/docker-images/tree/master/filebeat/filebeat-7.0.0"></a>SOURCE: <a href="https://github.com/rootsongjc/docker-images/tree/master/filebeat/filebeat-7.0.0">https://github.com/rootsongjc/docker-images/tree/master/filebeat/filebeat-7.0.0</a></h1><p>FROM centos<br>MAINTAINER wangning</p><h1 id="Install-Filebeat"><a href="#Install-Filebeat" class="headerlink" title="Install Filebeat"></a>Install Filebeat</h1><p>COPY ./filebeat-7.0.0-linux-x86_64.tar.gz /usr/local/<br>RUN cd /usr/local &amp;&amp; <br> tar -xvf /usr/local/filebeat-7.0.0-linux-x86_64.tar.gz &amp;&amp; <br> rm -f filebeat-7.0.0-linux-x86_64.tar.gz &amp;&amp; <br> ln -s /usr/local/filebeat-7.0.0-linux-x86_64 /usr/local/filebeat &amp;&amp; <br> chmod +x /usr/local/filebeat/filebeat &amp;&amp; <br> mkdir -p /etc/filebeat</p><p>ENV PATHS /var/log/yum.log<br>#ENV ES_SERVER 172.23.5.255:9200<br>ENV INDEX filebeat-test<br>ENV INPUT_TYPE log<br>#ENV ES_USERNAME elastic<br>#ENV ES_PASSWORD changeme</p><p>#ADD ./filebeat.yml /etc/filebeat/<br>ADD ./docker-entrypoint.sh /usr/bin/</p><p>ENTRYPOINT [“docker-entrypoint.sh”]<br>#CMD [“/usr/local/filebeat/filebeat”,”-e”,”-c”,”/etc/filebeat/filebeat.yml”]<br>​</p><p>​</p><p>—- filbeat.yaml 模板—————<br>filebeat.inputs:</p><ul><li>type: log<br>paths:<ul><li>path<br>tags: [“xxpro”,”plancenterpre”]</li></ul></li></ul><p>name: 192.168.1.237<br>processors:</p><ul><li>drop_fields:<br>fields: [“agent.ephemeral_id”, “agent.version”, “ecs.version”, “log.offset”, “agent.id”]</li></ul><p>output.logstash:<br>hosts: [“xxxxx:5044”]<br>​</p><p>–指定 tag,正则切割以及索引</p><ul><li>type: log<br>paths: - /opt/logs/uat/cactus/*.log<br>tags: [“aliuat”,”doct”]<br>multiline:<br>pattern: ‘^\d{4}-\d{2}-\d{2}’<br>negate: true<br>match: after<br>exclude_files: [‘perf.log’]<br>fields:<br>filetype: other<br>fields_under_root: true<br>​</li></ul><p>​</p><p>— docker-entrypoint.sh –容器初始化脚本<br>​</p><p>#!/bin/bash<br>ENV=${ENV:-“plan”}<br>FILETYPE=${FILETYPE:-“plan”}<br>#PROJECT=${project:-“xxpre”}<br>PROJECT=${PROJECT:-“xxpre”}<br>PROJ_NAME=${PROJ_NAME:-“no-define”}<br>MULTILINE=${MULTILINE:-“^\d{4}-\d{2}-\d{2}”}<br>cat &gt; /etc/filebeat.yaml &lt;&lt; EOF<br>filebeat.inputs:</p><ul><li>type: log<br>fields_under_root: true<br>fields:<br>topic: logm-${PROJ_NAME}<br>filetype: $FILETYPE<br>paths:<ul><li>/logm/*.log</li><li>/logm/<em>/</em>.log</li><li>/logm/<em>/</em>/*.log</li><li>/logm/<em>/</em>/<em>/</em>.log</li><li>/logm/<em>/</em>/<em>/</em>/*.log<br>scan_frequency: 120s<br>tags: [“$PROJECT”,”$ENV”]<br>exclude_files: [‘perf.log’,’20’]<br>max_bytes: 10485760<br>multiline.pattern: ‘$MULTILINE’<br>multiline.negate: true<br>multiline.match: after<br>multiline.max_lines: 3000</li></ul></li><li>type: log<br>fields_under_root: true<br>fields:<br>topic: logu-${PROJ_NAME}<br>paths: - /logu/<em>.log - /logu/</em>/<em>.log - /logu/</em>/<em>/</em>.log - /logu/<em>/</em>/<em>/</em>.log - /logu/<em>/</em>/<em>/</em>/<em>.log - /logu/</em>/<em>/</em>/<em>/</em>/*.log<br>#output.kafka:</li></ul><h1 id="hosts-“10-100-243-217-9092”-”10-108-213-213-9092”-”10-101-165-156-9092”"><a href="#hosts-“10-100-243-217-9092”-”10-108-213-213-9092”-”10-101-165-156-9092”" class="headerlink" title="hosts: [“10.100.243.217:9092”,”10.108.213.213:9092”,”10.101.165.156:9092”]"></a>hosts: [“10.100.243.217:9092”,”10.108.213.213:9092”,”10.101.165.156:9092”]</h1><h1 id="topic-topic-ENV"><a href="#topic-topic-ENV" class="headerlink" title="topic: topic-$ENV"></a>topic: topic-$ENV</h1><h1 id="version-2-0-0"><a href="#version-2-0-0" class="headerlink" title="version: 2.0.0"></a>version: 2.0.0</h1><h1 id="required-acks-0"><a href="#required-acks-0" class="headerlink" title="required_acks: 0"></a>required_acks: 0</h1><h1 id="max-message-bytes-10485760"><a href="#max-message-bytes-10485760" class="headerlink" title="max_message_bytes: 10485760"></a>max_message_bytes: 10485760</h1><p>output.logstash:<br>hosts: [“xxxxxx:5044”]</p><p>EOF<br>set -xe<br>if [[“$1” == “”]]; then<br>exec /usr/local/filebeat/filebeat -c /etc/filebeat.yaml<br>else<br>exec “$@”<br>fi<br>​</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Dockerfile&lt;/p&gt;
-&lt;h1 id=&quot;DESCRIPTION-Filebeat&quot;&gt;&lt;a href=&quot;#DESCRIPTION-Filebeat&quot; class=&quot;headerlink&quot; title=&quot;DESCRIPTION: Filebeat&quot;&gt;&lt;/a&gt;DESCRIP</summary>
       
     
     
