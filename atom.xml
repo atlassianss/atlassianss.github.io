@@ -6,7 +6,7 @@
   <link href="https://github.com/atom.xml" rel="self"/>
   
   <link href="https://github.com/"/>
-  <updated>2021-09-28T06:57:46.623Z</updated>
+  <updated>2021-09-28T07:30:01.149Z</updated>
   <id>https://github.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://github.com/2021/09/28/LRU%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95-1/"/>
     <id>https://github.com/2021/09/28/LRU%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95-1/</id>
     <published>2021-09-28T03:16:33.000Z</published>
-    <updated>2021-09-28T06:57:46.623Z</updated>
+    <updated>2021-09-28T07:30:01.149Z</updated>
     
-    <content type="html"><![CDATA[<p>常用策略：<br>FIFO（先进先出调度器） 、Capacity Scheduler（容量调度器）和 Fair Sceduler（公平调度器）。</p><p>为了直观地对比，我画了一张图。从图中我们看到，数组需要一块连续的内存空间来存储，对内存的要求比较高。如果我们申请一个 100MB 大小的数组，当内存中没有连续的、足够大的存储空间时，即便内存的剩余总可用空间大于 100MB，仍然会申请失败。<br><img src="https://static001.geekbang.org/resource/image/d5/cd/d5d5bee4be28326ba3c28373808a62cd.jpg" alt="内存分布"></p><p>链表结构五花八门，今天我重点给你介绍三种最常见的链表结构，它们分别是：单链表、双向链表和循环链表。我们首先来看最简单、最常用的单链表。我们刚刚讲到，链表通过指针将一组零散的内存块串联在一起。其中，我们把内存块称为链表的“结点”。为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址。如图所示，我们把这个记录下个结点地址的指针叫作后继指针 next。<br><img src="https://static001.geekbang.org/resource/image/b9/eb/b93e7ade9bb927baad1348d9a806ddeb.jpg" alt="内存分布"></p>]]></content>
+    <content type="html"><![CDATA[<p>常用策略：<br>FIFO（先进先出调度器） 、Capacity Scheduler（容量调度器）和 Fair Sceduler（公平调度器）。</p><p>为了直观地对比，我画了一张图。从图中我们看到，数组需要一块连续的内存空间来存储，对内存的要求比较高。如果我们申请一个 100MB 大小的数组，当内存中没有连续的、足够大的存储空间时，即便内存的剩余总可用空间大于 100MB，仍然会申请失败。<br><img src="https://static001.geekbang.org/resource/image/d5/cd/d5d5bee4be28326ba3c28373808a62cd.jpg" alt="内存分布"></p><p>链表结构五花八门，今天我重点给你介绍三种最常见的链表结构，它们分别是：单链表、双向链表和循环链表。我们首先来看最简单、最常用的单链表。我们刚刚讲到，链表通过指针将一组零散的内存块串联在一起。其中，我们把内存块称为链表的“结点”。为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址。如图所示，我们把这个记录下个结点地址的指针叫作后继指针 next。<br><img src="https://static001.geekbang.org/resource/image/b9/eb/b93e7ade9bb927baad1348d9a806ddeb.jpg" alt="单链表"></p><p>在进行数组的插入、删除操作时，为了保持内存数据的连续性，需要做大量的数据搬移，所以时间复杂度是 O(n)。而在链表中插入或者删除一个数据，我们并不需要为了保持内存的连续性而搬移结点，因为链表的存储空间本身就不是连续的。所以，在链表中插入和删除一个数据是非常快速的。仅考虑链表插入和删除操作的时间复杂度，不考虑查找定位到该位置的时间复杂度。<br><img src="https://static001.geekbang.org/resource/image/45/17/452e943788bdeea462d364389bd08a17.jpg"></p><p>循环链表是一种特殊的单链表。实际上，循环链表也很简单。它跟单链表唯一的区别就在尾结点。我们知道，单链表的尾结点指针指向空地址，表示这就是最后的结点了。而循环链表的尾结点指针是指向链表的头结点。从我画的循环链表图中，你应该可以看出来，它像一个环一样首尾相连，所以叫作“循环”链表。<br><img src="https://static001.geekbang.org/resource/image/86/55/86cb7dc331ea958b0a108b911f38d155.jpg"></p><p>单向链表只有一个方向，结点只有一个后继指针 next 指向后面的结点。而双向链表，顾名思义，它支持两个方向，每个结点不止有一个后继指针 next 指向后面的结点，还有一个前驱指针 prev 指向前面的结点。<br><img src="https://static001.geekbang.org/resource/image/cb/0b/cbc8ab20276e2f9312030c313a9ef70b.jpg"></p><p><strong>删除操作</strong><br>在实际的软件开发中，从链表中删除一个数据无外乎这两种情况：删除结点中“值等于某个给定值”的结点；删除给定指针指向的结点。对于第一种情况，不管是单链表还是双向链表，为了查找到值等于给定值的结点，都需要从头结点开始一个一个依次遍历对比，直到找到值等于给定值的结点，然后再通过我前面讲的指针操作将其删除。尽管单纯的删除操作时间复杂度是 O(1)，但遍历查找的时间是主要的耗时点，对应的时间复杂度为 O(n)。根据时间复杂度分析中的加法法则，删除值等于给定值的结点对应的链表操作的总时间复杂度为 O(n)。</p><p>对于第二种情况，我们已经找到了要删除的结点，但是删除某个结点 q 需要知道其前驱结点，而单链表并不支持直接获取前驱结点，所以，为了找到前驱结点，我们还是要从头结点开始遍历链表，直到 p-&gt;next=q，说明 p 是 q 的前驱结点。但是对于双向链表来说，这种情况就比较有优势了。因为双向链表中的结点已经保存了前驱结点的指针，不需要像单链表那样遍历。所以，针对第二种情况，单链表删除操作需要 O(n) 的时间复杂度，而双向链表只需要在 O(1) 的时间复杂度内就搞定了！同理，如果我们希望在链表的某个指定结点前面插入一个结点，双向链表比单链表有很大的优势。双向链表可以在 O(1) 时间复杂度搞定，而单向链表需要 O(n) 的时间复杂度。你可以参照我刚刚讲过的删除操作自己分析一下。除了插入、删除操作有优势之外，对于一个有序链表，双向链表的按值查询的效率也要比单链表高一些。因为，我们可以记录上次查找的位置 p，每次查询时，根据要查找的值与 p 的大小关系，决定是往前还是往后查找，所以平均只需要查找一半的数据。现在，你有没有觉得双向链表要比单链表更加高效呢？这就是为什么在实际的软件开发中，双向链表尽管比较费内存，但还是比单链表的应用更加广泛的原因。如果你熟悉 Java 语言，你肯定用过 LinkedHashMap 这个容器。如果你深入研究 LinkedHashMap 的实现原理，就会发现其中就用到了双向链表这种数据结构。实际上，这里有一个更加重要的知识点需要你掌握，那就是用空间换时间的设计思想。当内存空间充足的时候，如果我们更加追求代码的执行速度，我们就可以选择空间复杂度相对较高、但时间复杂度相对很低的算法或者数据结构。相反，如果内存比较紧缺，比如代码跑在手机或者单片机上，这个时候，就要反过来用时间换空间的设计思路。还是开篇缓存的例子。缓存实际上就是利用了空间换时间的设计思想。如果我们把数据存储在硬盘上，会比较节省内存，但每次查找数据都要询问一次硬盘，会比较慢。但如果我们通过缓存技术，事先将数据加载在内存中，虽然会比较耗费内存空间，但是每次数据查询的速度就大大提高了。所以我总结一下，对于执行较慢的程序，可以通过消耗更多的内存（空间换时间）来进行优化；而消耗过多内存的程序，可以通过消耗更多的时间（时间换空间）来降低内存的消耗。<br>双向循环链表<br><img src="https://static001.geekbang.org/resource/image/d1/91/d1665043b283ecdf79b157cfc9e5ed91.jpg"></p><p>CPU在从内存读取数据的时候，会先把读取到的数据加载到CPU的缓存中。而CPU每次从内存读取数据并不是只读取那个特定要访问的地址，而是读取一个数据块(这个大小我不太确定。。)并保存到CPU缓存中，然后下次访问内存数据的时候就会先从CPU缓存开始查找，如果找到就不需要再从内存中取。这样就实现了比内存访问速度更快的机制，也就是CPU缓存存在的意义:为了弥补内存访问速度过慢与CPU执行速度快之间的差异而引入。<br>对于数组来说，存储空间是连续的，所以在加载某个下标的时候可以把以后的几个下标元素也加载到CPU缓存这样执行速度会快于存储空间不连续的链表存储。</p>]]></content>
     
     
       
@@ -313,7 +313,7 @@
     <published>2021-09-24T07:52:05.000Z</published>
     <updated>2021-09-24T07:53:40.429Z</updated>
     
-    <content type="html"><![CDATA[<p>1.CPU 占用最多的前 10 个进程：<br>ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k4|head -10 3.虚拟内存使用最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k5|head -10</p><p>for i in <code>ls /proc/[0-9]*/net/tcp</code>; do cat $i |wc -l &gt;&gt; 1.txt; done</p><p>处理磁盘<br>fuser-kvm /home<br>umount /home<br>lvreduce -L 50G /dev/mapper/centos-home<br>mkfs.xfs -f /dev/mapper/centos-home<br>mount /dev/mapper/centos-home /home/<br>vgdisplay<br>lvextend -L +425G /dev/mapper/centos-root<br>xfs_growfs /dev/mapper/centos-root</p><p>初始化机器所需要安装包：yum install lrzsz vim-enhanced lsof tree gcc gcc-c++ ntpdate -y</p><p>0 _/1 _ * _ /usr/sbin/ntpdatentp.aliyun.com&amp;&gt;/dev/null<br>1 _/1 * * * /usr/sbin/ntpdate 172.17.70.221 &amp;&gt;/dev/null &amp;&amp; /sbin/hwclock -w 写入硬件<br>时间同步</p><p>日志切割 cd /etc/logrotate.d/<br>/opt/tengine/logs/*.log {<br>rotate 60<br>daily<br> copytruncate<br> notifempty<br> missingok<br> dateext<br>sharedscripts<br>}</p><p>echogridnt123 |passwd–stdin gridnt 强制修改 gridnt 用户设置密码为 gridnt123</p><p>排查句柄数：lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort -nr | more<br>cat /proc/PID/cgroup docker ps -a |grep xxx<br>​</p><p>防火墙策略 firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>/etc/firewalld/zones/public.xml</p><p>rsync 强制同步：rsync -azvh tomcat-paygateway/ –exclude=logs <a href="mailto:&#114;&#111;&#x6f;&#x74;&#x40;&#49;&#55;&#x32;&#46;&#49;&#x37;&#46;&#x38;&#x2e;&#x31;&#48;&#x35;">&#114;&#111;&#x6f;&#x74;&#x40;&#49;&#55;&#x32;&#46;&#49;&#x37;&#46;&#x38;&#x2e;&#x31;&#48;&#x35;</a>:/opt/tomcat-paygateway/<br>​</p><p>僵尸进程 ps -A -o stat,ppid,pid,cmd | grep -e ‘^[Zz]’ | awk ‘{print $2}’<br>​</p><p>centos 查询 load 飙高的进程<br>#!/bin/bash length=86400 for i in $(seq 1 $(expr ${length} / ${interval}));do date &gt;&gt; load.result ps -eTo stat,pid,tid,ppid,comm –no-header | sed -e ‘s/^ *//‘ | perl -nE ‘chomp;say if (m!^\S*[RD]+\S*!)’ &gt;&gt; load.result echo -e “\n” &gt;&gt; load.result done</p>]]></content>
+    <content type="html"><![CDATA[<p>1.CPU 占用最多的前 10 个进程：<br>ps auxw|head -1;ps auxw|sort -rn -k3|head -10 2.内存消耗最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k4|head -10 3.虚拟内存使用最多的前 10 个进程<br>ps auxw|head -1;ps auxw|sort -rn -k5|head -10</p><p>for i in <code>ls /proc/[0-9]*/net/tcp</code>; do cat $i |wc -l &gt;&gt; 1.txt; done</p><p>处理磁盘<br>fuser-kvm /home<br>umount /home<br>lvreduce -L 50G /dev/mapper/centos-home<br>mkfs.xfs -f /dev/mapper/centos-home<br>mount /dev/mapper/centos-home /home/<br>vgdisplay<br>lvextend -L +425G /dev/mapper/centos-root<br>xfs_growfs /dev/mapper/centos-root</p><p>初始化机器所需要安装包：yum install lrzsz vim-enhanced lsof tree gcc gcc-c++ ntpdate -y</p><p>0 _/1 _ * _ /usr/sbin/ntpdatentp.aliyun.com&amp;&gt;/dev/null<br>1 _/1 * * * /usr/sbin/ntpdate 172.17.70.221 &amp;&gt;/dev/null &amp;&amp; /sbin/hwclock -w 写入硬件<br>时间同步</p><p>日志切割 cd /etc/logrotate.d/<br>/opt/tengine/logs/*.log {<br>rotate 60<br>daily<br> copytruncate<br> notifempty<br> missingok<br> dateext<br>sharedscripts<br>}</p><p>echogridnt123 |passwd–stdin gridnt 强制修改 gridnt 用户设置密码为 gridnt123</p><p>排查句柄数：lsof -n | awk ‘{print $2}’ | sort | uniq -c | sort -nr | more<br>cat /proc/PID/cgroup docker ps -a |grep xxx<br>​</p><p>防火墙策略 firewall-cmd –zone=public –add-port=3306/tcp –permanent<br>/etc/firewalld/zones/public.xml</p><p>rsync 强制同步：rsync -azvh tomcat-paygateway/ –exclude=logs <a href="mailto:&#114;&#111;&#x6f;&#x74;&#x40;&#x31;&#x37;&#50;&#46;&#x31;&#55;&#x2e;&#x38;&#46;&#49;&#48;&#53;">&#114;&#111;&#x6f;&#x74;&#x40;&#x31;&#x37;&#50;&#46;&#x31;&#55;&#x2e;&#x38;&#46;&#49;&#48;&#53;</a>:/opt/tomcat-paygateway/<br>​</p><p>僵尸进程 ps -A -o stat,ppid,pid,cmd | grep -e ‘^[Zz]’ | awk ‘{print $2}’<br>​</p><p>centos 查询 load 飙高的进程<br>#!/bin/bash length=86400 for i in $(seq 1 $(expr ${length} / ${interval}));do date &gt;&gt; load.result ps -eTo stat,pid,tid,ppid,comm –no-header | sed -e ‘s/^ *//‘ | perl -nE ‘chomp;say if (m!^\S*[RD]+\S*!)’ &gt;&gt; load.result echo -e “\n” &gt;&gt; load.result done</p>]]></content>
     
     
       
@@ -339,6 +339,26 @@
       
       
     <summary type="html">&lt;h1 id=&quot;sysctl-settings-are-defined-through-files-in&quot;&gt;&lt;a href=&quot;#sysctl-settings-are-defined-through-files-in&quot; class=&quot;headerlink&quot; title=&quot;sysc</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>jaeger-configmap</title>
+    <link href="https://github.com/2021/09/24/configmap/"/>
+    <id>https://github.com/2021/09/24/configmap/</id>
+    <published>2021-09-24T07:52:05.000Z</published>
+    <updated>2021-09-24T07:54:38.196Z</updated>
+    
+    <content type="html"><![CDATA[<p>apiVersion: v1<br>kind: ConfigMap<br>metadata:<br>name: jaeger-configuration<br>namespace: devops<br>labels:<br>app: jaeger<br>app.kubernetes.io/name: jaeger<br>data:<br>ingester: |<br>kafka:<br>consumer:<br>topic: jaeger-spans<br>brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>ingester:<br>deadlockInterval: 5s<br>storage: |<br>type: elasticsearch<br>es:<br>server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>span-storage-type: kafka<br>collector: |<br>kafka:<br>producer:<br>topic: jaeger-spans<br>#brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>brokers: 172.16.221.78:30901,172.16.221.78:30902,172.16.221.78:30903<br>collector:<br>zipkin:<br>http-port: 9411</p><h1 id="es"><a href="#es" class="headerlink" title="es:"></a>es:</h1><h1 id="server-urls-http-172-16-67-195-9200"><a href="#server-urls-http-172-16-67-195-9200" class="headerlink" title="server-urls: http://172.16.67.195:9200"></a>server-urls: <a href="http://172.16.67.195:9200/">http://172.16.67.195:9200</a></h1><p>#agent: |</p><h1 id="collector"><a href="#collector" class="headerlink" title="collector:"></a>collector:</h1><h1 id="host-port-“jaeger-collector-14267”"><a href="#host-port-“jaeger-collector-14267”" class="headerlink" title="host-port: “jaeger-collector:14267”"></a>host-port: “jaeger-collector:14267”</h1><p>span-storage-query: elasticsearch<br>query: |<br>es:<br>#server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>server-urls: <a href="http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200/">http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200</a><br>username: elastic<br>password: Yuantu123<br>max-span-age: 168h0m0s<br>​</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;apiVersion: v1&lt;br&gt;kind: ConfigMap&lt;br&gt;metadata:&lt;br&gt;name: jaeger-configuration&lt;br&gt;namespace: devops&lt;br&gt;labels:&lt;br&gt;app: jaeger&lt;br&gt;app.kubern</summary>
       
     
     
@@ -387,26 +407,6 @@
   </entry>
   
   <entry>
-    <title>jaeger-configmap</title>
-    <link href="https://github.com/2021/09/24/configmap/"/>
-    <id>https://github.com/2021/09/24/configmap/</id>
-    <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:54:38.196Z</updated>
-    
-    <content type="html"><![CDATA[<p>apiVersion: v1<br>kind: ConfigMap<br>metadata:<br>name: jaeger-configuration<br>namespace: devops<br>labels:<br>app: jaeger<br>app.kubernetes.io/name: jaeger<br>data:<br>ingester: |<br>kafka:<br>consumer:<br>topic: jaeger-spans<br>brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>ingester:<br>deadlockInterval: 5s<br>storage: |<br>type: elasticsearch<br>es:<br>server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>span-storage-type: kafka<br>collector: |<br>kafka:<br>producer:<br>topic: jaeger-spans<br>#brokers: 172.21.4.151:9092,172.21.6.155:9092,172.21.2.177:9092<br>brokers: 172.16.221.78:30901,172.16.221.78:30902,172.16.221.78:30903<br>collector:<br>zipkin:<br>http-port: 9411</p><h1 id="es"><a href="#es" class="headerlink" title="es:"></a>es:</h1><h1 id="server-urls-http-172-16-67-195-9200"><a href="#server-urls-http-172-16-67-195-9200" class="headerlink" title="server-urls: http://172.16.67.195:9200"></a>server-urls: <a href="http://172.16.67.195:9200/">http://172.16.67.195:9200</a></h1><p>#agent: |</p><h1 id="collector"><a href="#collector" class="headerlink" title="collector:"></a>collector:</h1><h1 id="host-port-“jaeger-collector-14267”"><a href="#host-port-“jaeger-collector-14267”" class="headerlink" title="host-port: “jaeger-collector:14267”"></a>host-port: “jaeger-collector:14267”</h1><p>span-storage-query: elasticsearch<br>query: |<br>es:<br>#server-urls: <a href="http://172.16.67.195:9200,http://172.16.67.175:9200">http://172.16.67.195:9200,http://172.16.67.175:9200</a><br>server-urls: <a href="http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200/">http://es-cn-m7r1rd2ve0001yhhc.elasticsearch.aliyuncs.com:9200</a><br>username: elastic<br>password: Yuantu123<br>max-span-age: 168h0m0s<br>​</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;apiVersion: v1&lt;br&gt;kind: ConfigMap&lt;br&gt;metadata:&lt;br&gt;name: jaeger-configuration&lt;br&gt;namespace: devops&lt;br&gt;labels:&lt;br&gt;app: jaeger&lt;br&gt;app.kubern</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>docker安装</title>
     <link href="https://github.com/2021/09/24/docker%E5%AE%89%E8%A3%85/"/>
     <id>https://github.com/2021/09/24/docker%E5%AE%89%E8%A3%85/</id>
@@ -427,18 +427,18 @@
   </entry>
   
   <entry>
-    <title>elasticsearch-curator工具使用</title>
-    <link href="https://github.com/2021/09/24/elasticsearch-curator%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
-    <id>https://github.com/2021/09/24/elasticsearch-curator%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</id>
+    <title>elasticserch常用查询命令</title>
+    <link href="https://github.com/2021/09/24/elasticserch%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/"/>
+    <id>https://github.com/2021/09/24/elasticserch%E5%B8%B8%E7%94%A8%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4/</id>
     <published>2021-09-24T07:52:05.000Z</published>
-    <updated>2021-09-24T07:56:42.410Z</updated>
+    <updated>2021-09-24T07:57:01.362Z</updated>
     
-    <content type="html"><![CDATA[<p>action.yml 模板：<br>actions:<br>1:<br>action: delete_indices<br>description: ‘Delete logstash index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>#kind: prefix<br>value: ‘logstash-.<em>$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>#timestring: ‘%Y-%m-%d’<br>2:<br>action: delete_indices<br>description: ‘Delete user index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>value: ‘user-.</em>$’<br>    - filtertype: age<br>      source: name<br>      direction: older<br>      timestring: ‘%Y-%m-%d’<br>      unit: days<br>      unit_count: 2<br>  3:<br>    action: delete_indices<br>    description: ‘Delete plan index’<br>    options:<br>      ignore_empty_list: True<br>      timeout_override:<br>      continue_if_exception: False<br>      disable_action: False<br>      allow_ilm_indices: True<br>    filters:<br>    - filtertype: pattern<br>      kind: regex<br>      value: ‘plan-.*$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>4:<br>action: delete_indices<br>description: ‘Delete virtual index’<br>options:<br>ignore_empty_list: True<br>timeout_override:<br>continue_if_exception: False<br>disable_action: False<br>allow_ilm_indices: True<br>filters: - filtertype: pattern<br>kind: regex<br>value: ‘virtual-.*$’ - filtertype: age<br>source: name<br>direction: older<br>timestring: ‘%Y-%m-%d’<br>unit: days<br>unit_count: 6<br>​</p><p>config.yml<br>client:<br>hosts: - 10.122.2.190 - 10.122.2.193<br>port: 9200<br>url_prefix:<br>use_ssl: False<br>certificate:<br>client_cert:<br>client_key:<br>ssl_no_validate: False<br>http_auth:<br>timeout:<br>master_only: False</p><p>logging:<br>loglevel: INFO<br>logfile: /opt/elasticsearch-curator/logs/run.log<br>logformat: default<br>blacklist: [‘elasticsearch’, ‘urllib3’]</p><p>运行：curator –config /opt/curator/conf/config.yml /opt/curator/conf/action.yml<br>​</p>]]></content>
+    <content type="html"><![CDATA[<p>查询索引列表<br>curl -u 用户:密码 <a href="http://es/">http://es</a>地址:9200/_cat/indices?v<br>清除 cache<br>curl <a href="http://es/">http://es</a>地址:9200/_cache/clear?pretty -XPOST</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;action.yml 模板：&lt;br&gt;actions:&lt;br&gt;1:&lt;br&gt;action: delete_indices&lt;br&gt;description: ‘Delete logstash index’&lt;br&gt;options:&lt;br&gt;ignore_empty_list: True</summary>
+    <summary type="html">&lt;p&gt;查询索引列表&lt;br&gt;curl -u 用户:密码 &lt;a href=&quot;http://es/&quot;&gt;http://es&lt;/a&gt;地址:9200/_cat/indices?v&lt;br&gt;清除 cache&lt;br&gt;curl &lt;a href=&quot;http://es/&quot;&gt;http://es&lt;/a&gt;地址</summary>
       
     
     
