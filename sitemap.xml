@@ -494,13 +494,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/tags/go/</loc>
-    <lastmod>2022-03-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://github.com/tags/kali/</loc>
     <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
@@ -508,7 +501,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/tags/Hexo/</loc>
+    <loc>https://github.com/tags/go/</loc>
     <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -516,6 +509,13 @@
   
   <url>
     <loc>https://github.com/tags/jaeger/</loc>
+    <lastmod>2022-03-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://github.com/tags/Hexo/</loc>
     <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -573,13 +573,6 @@
   </url>
   
   <url>
-    <loc>https://github.com/categories/golang/</loc>
-    <lastmod>2022-03-10</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://github.com/categories/kali/</loc>
     <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
@@ -587,7 +580,7 @@
   </url>
   
   <url>
-    <loc>https://github.com/categories/hexo%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://github.com/categories/golang/</loc>
     <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -595,6 +588,13 @@
   
   <url>
     <loc>https://github.com/categories/jaeger%E9%93%BE%E8%B7%AF%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2022-03-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://github.com/categories/hexo%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2022-03-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
