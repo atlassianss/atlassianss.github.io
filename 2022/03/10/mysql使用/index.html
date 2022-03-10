@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>mysql使用 | Hume</title><meta name="author" content="子非鱼"><meta name="copyright" content="子非鱼"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="创建数据库1.创建数据库：&#x2F;&#x2F;create database [if not exists]数据库名 [default charset utf8 collate utf8_general_ci];mysql&gt; create database my1905 character set utf8;Query OK, 1 row affected (0.00 sec)2.显示数据库：mysql&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql使用">
+<meta property="og:url" content="https://github.com/2022/03/10/mysql%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hume">
+<meta property="og:description" content="创建数据库1.创建数据库：&#x2F;&#x2F;create database [if not exists]数据库名 [default charset utf8 collate utf8_general_ci];mysql&gt; create database my1905 character set utf8;Query OK, 1 row affected (0.00 sec)2.显示数据库：mysql&amp;g">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/img/app10.jpg">
+<meta property="article:published_time" content="2022-03-10T01:13:58.000Z">
+<meta property="article:modified_time" content="2022-03-10T01:14:33.625Z">
+<meta property="article:author" content="子非鱼">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/img/app10.jpg"><link rel="shortcut icon" href="/img/jpg.jpg"><link rel="canonical" href="https://github.com/2022/03/10/mysql%E4%BD%BF%E7%94%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mysql使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-03-10 09:14:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hume" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/ava.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">62</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/app10.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hume</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">mysql使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-03-10T01:13:58.000Z" title="Created 2022-03-10 09:13:58">2022-03-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-03-10T01:14:33.625Z" title="Updated 2022-03-10 09:14:33">2022-03-10</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="mysql使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>创建数据库</strong><br>1.创建数据库：<br>//create database [if not exists]数据库名 [default charset utf8 collate utf8_general_ci];<br>mysql&gt; create database my1905 character set utf8;<br>Query OK, 1 row affected (0.00 sec)<br>2.显示数据库：<br>mysql&gt; show databases;<br>3.切换到数据库：<br>mysql&gt; use my1905;<br>4.查看当前数据库有哪些数据表：<br>mysql&gt; show tables;<br>5.删除数据库：<br>mysql&gt; drop database if exists my1905;<br><strong>数据类型</strong><br>char(10)–&gt;定长的字符串<br>“wangergou “<br>“abc “<br>varchar(10)–&gt;变长<br>“wangergou”<br>“abc”<br><strong>数据表的操作</strong><br>1.创建数据库：<br>mysql&gt; create database if not exists my1905 default charset utf8 collate utf8_ge<br>neral_ci;<br>2.创建数据表：<br>mysql&gt; create table users(<br>    -&gt; id int(4) primary key auto_increment,<br>    -&gt; username varchar(20),<br>    -&gt; pwd varchar(30));<br>3.查看表结构：desc–&gt;describe<br>mysql&gt; desc users;<br>4.显示检表语句：<br>mysql&gt; show create table users;<br>5.插入一条数据：<br>mysql&gt; insert into users(id,username,pwd) values(1,’admin’,’123456’);<br>Query OK, 1 row affected (0.02 sec)<br>6.查询数据：<br>mysql&gt; select * from users;<br><strong>修改表结构</strong><br>1.添加字段:add<br>mysql&gt; alter table users add(<br>    -&gt; age int(4),<br>    -&gt; birthday date);<br>2.修改已有字段的数据类型：modify<br>mysql&gt; alter table users modify age float(4,1);<br>注意点：并不能随意的更改已有列的数据类型。尤其是表中已经有数据了<br>A：兼容类型：长度可以从小到大，不能已有的数据越界。<br>B：不兼容类型：varchar–&gt;int，更改失败。<br>3.更改列的名字：change<br>mysql&gt; alter table users change pwd password varchar(30);<br>4.删除某列：drop<br>mysql&gt; alter table users drop birthday;<br>5.表重命名：rename to<br>mysql&gt; alter table users rename to user2;<br>mysql&gt; rename table user2 to user3;<br>6.删除表：drop table<br>mysql&gt; drop table user3;<br><strong>插入数据</strong><br>1.插入数据：<br>insert into 表名(列1，列2，列3.。。) values(值1,值2,值3.。。)<br>全列插入：如果有所有列都要插入数据，那么可以省略列的名字<br>缺省插入：如果有某一个或一些字段没有数值，那么就要写清楚列名和值。<br><strong>修改数据</strong><br>语法结构：<br>update 表名 set 列1=值1,列2=值2…[where 条件];<br><strong>SQL</strong><br>结构化查询语言(Structured Query Language)。操作数据库的。<br>DDL语言：数据定义语言(用于定义数据的表结构)Data Definition Language<br>创建数据表：create table 表名<br>修改数据表：alter table 表名<br>删除数据表：drop table 表名<br>DML语言：数据操纵语言(用于操作数据表中的数据)DML - Data Mainpulation Language<br>添加数据：insert<br>修改数据：update<br>删除数据：delete<br>DQL语言：数据查询语言(专门用于数据的查询)DQL - Data Query Language<br>查询数据：select<br><strong>总结</strong><br>数据库：<br>​ 安装和卸载(看文档)<br>​ 数据库的登录：<br>​ 1.dos窗口：mysql命令—&gt;配置环境变量<br>​ -u 用户名<br>​ -p 密码<br>​ 2.mysql的命令行：直接输入密码即可<br>​ 3.通过一些可视化工具：比如navicat<br>1.show databases;<br>2.create database if not exists my1905 character set utf8;<br>​ default charset utf8 collate utf8_general_ci;<br>3.use my1905;<br>4.create table student(id int(4) primary key auto_increment，name varchar(30),sex varchar(2))；<br>5.alter table 表名<br>​ add 列名 数据类型<br>​ modify 列名 数据类型<br>​ change 原列名 新列名 数据类型<br>​ drop 删除列<br>6.drop table 表名;<br>7.insert into 表名(列1，列2，列3.。。) values(值1，值2，值3.。。。)<br>​ 全列插入：<br>​ 同时插入多条：<br>8.update 表名 set 列1=新值，列2=新值 [where 修改条件];<br>​ where 后 的是表达式是boolean<br>​ =,!=,&lt;&gt;,&gt;,&lt;,&gt;=,&lt;=,between and, and , or ,not ….<br>​ null—&gt; is null ,is not null<br>9.delete from 表名 where 删除条件<br>约束：主键，外键<br>查询：简单查询，复杂，多表</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">子非鱼</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://github.com/2022/03/10/mysql%E4%BD%BF%E7%94%A8/">https://github.com/2022/03/10/mysql%E4%BD%BF%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/app10.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/10/11/%E6%96%B0%E8%B5%84%E6%9C%AC%E8%AE%BA/"><img class="next-cover" src="/img/default_cover4.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/ava.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">子非鱼</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">62</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div></div><a class="button--animated" id="card-info-btn" href="https://github.com/atlassianss"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">子非鱼安知鱼之乐，子非我安知我之乐</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/10/mysql%E4%BD%BF%E7%94%A8/" title="mysql使用"><img src="/img/app10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql使用"/></a><div class="content"><a class="title" href="/2022/03/10/mysql%E4%BD%BF%E7%94%A8/" title="mysql使用">mysql使用</a><time datetime="2022-03-10T01:13:58.000Z" title="Created 2022-03-10 09:13:58">2022-03-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/11/%E6%96%B0%E8%B5%84%E6%9C%AC%E8%AE%BA/" title="No title"><img src="/img/default_cover4.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2021/10/11/%E6%96%B0%E8%B5%84%E6%9C%AC%E8%AE%BA/" title="No title">No title</a><time datetime="2021-10-11T05:25:04.974Z" title="Created 2021-10-11 13:25:04">2021-10-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/04/%E9%80%83%E4%B8%8D%E5%BC%80%E7%9A%84%E7%BB%8F%E6%B5%8E%E5%91%A8%E6%9C%9F/" title="逃不开的经济周期"><img src="/img/default_cover3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="逃不开的经济周期"/></a><div class="content"><a class="title" href="/2021/10/04/%E9%80%83%E4%B8%8D%E5%BC%80%E7%9A%84%E7%BB%8F%E6%B5%8E%E5%91%A8%E6%9C%9F/" title="逃不开的经济周期">逃不开的经济周期</a><time datetime="2021-10-04T14:39:21.000Z" title="Created 2021-10-04 22:39:21">2021-10-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/03/%E9%9D%A2%E5%90%91%E5%B9%B6%E5%8F%91%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="面向并发的内存模型"><img src="/img/app9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="面向并发的内存模型"/></a><div class="content"><a class="title" href="/2021/10/03/%E9%9D%A2%E5%90%91%E5%B9%B6%E5%8F%91%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="面向并发的内存模型">面向并发的内存模型</a><time datetime="2021-10-03T09:19:16.000Z" title="Created 2021-10-03 17:19:16">2021-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/02/%E5%87%BD%E6%95%B0%E3%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E5%8F%A3/" title="函数、方法和接口"><img src="/img/app10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="函数、方法和接口"/></a><div class="content"><a class="title" href="/2021/10/02/%E5%87%BD%E6%95%B0%E3%80%81%E6%96%B9%E6%B3%95%E5%92%8C%E6%8E%A5%E5%8F%A3/" title="函数、方法和接口">函数、方法和接口</a><time datetime="2021-10-02T14:32:09.000Z" title="Created 2021-10-02 22:32:09">2021-10-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 子非鱼</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
